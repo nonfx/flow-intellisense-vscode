@@ -1,5 +1,6 @@
 ### Checklist for raising a PR
-- [ ] Is this step done?
+- [ ] All necessary unit tests added.
+- [ ] `config` folder is updated as per latest `@cldcvr/flow-*` versions. 
 - [ ] Did you check the contributing doc?
 - [ ] Did you check the existing issues for similar queries?
 

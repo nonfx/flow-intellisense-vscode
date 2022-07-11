@@ -1,0 +1,50 @@
+{
+  "f-complex/icon": {
+    "description": "the Icon type for an icon avatar, see Icon Component",
+    "optionType": "string",
+    "defaultValue": "-"
+  },
+  "f-complex/src": {
+    "description": "the address of the image for an image avatar",
+    "optionType": "string",
+    "defaultValue": "-"
+  },
+  "f-complex/srcSet": {
+    "description": "a list of sources to use for different screen resolutions",
+    "optionType": "string",
+    "defaultValue": "-"
+  },
+  "f-complex/alt": {
+    "description": "This attribute defines the alternative text describing the image",
+    "optionType": "string",
+    "defaultValue": "-"
+  },
+  "f-complex/loadError": {
+    "description": "handler when img load error，return false to prevent default fallback behavior",
+    "optionType": "() => boolean",
+    "defaultValue": "-"
+  },
+  "f-complex/shape": {
+    "options": ["circle", "round"],
+    "description": "can be set to circle or omitted",
+    "optionType": "string",
+    "defaultValue": "-"
+  },
+  "f-complex/size": {
+    "options": ["small", "large"],
+    "description": "can be set to small large or omitted",
+    "optionType": "string",
+    "defaultValue": "default"
+  },
+  "f-complex/type": {
+    "options": ["primary", "ghost", "dashed", "danger"],
+    "description": "can be set to primary ghost dashed danger(added in 2.7) or omitted (meaning default)",
+    "optionType": "string",
+    "defaultValue": "default"
+  },
+  "f-complex/block": {
+    "description": "option to fit button width to its parent width",
+    "optionType": "boolean",
+    "defaultValue": "false"
+  }
+}

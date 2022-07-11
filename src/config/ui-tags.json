@@ -1,0 +1,7 @@
+{
+  "f-complex": {
+    "defaults": ["alt"],
+    "attributes": ["icon", "shape", "size", "src", "alt", "loadError"],
+    "description": "Avatars can be used to represent people or objects. It supports images, ‘Icon’s, or letters."
+  }
+}

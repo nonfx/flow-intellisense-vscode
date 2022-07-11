@@ -1,0 +1,77 @@
+{
+  "name": "flow-intellisense-vscode",
+  "displayName": "Flow Intellisense for flow design system",
+  "description": "flow library intellisense for vscode [*.vue, *.html]",
+  "version": "1.0.0",
+  "publisher": "dev-vikas",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cldcvr/flow-intellisense-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.30.0"
+  },
+  "icon": "flow.png",
+  "categories": [
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:vue",
+    "onCommand:flow-helper.search"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "flow-helper.search",
+        "title": "flow-helper.search"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "flow-helper.search",
+        "key": "shift+cmd+i",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Flow Helper Configuration",
+      "properties": {
+        "flow-helper.indent-size": {
+          "type": "number",
+          "default": 2,
+          "description": "Indentation size of snippets"
+        },
+        "flow-helper.quotes": {
+          "type": "string",
+          "default": "double"
+        },
+        "flow-helper.link-url": {
+          "type": "string",
+          "default": "https://github.com/cldcvr/flow-intellisense-vscode"
+        }
+      }
+    }
+  },
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "sh build.sh",
+    "compile": "sh build.sh",
+    "watch": "sh build.sh --watch",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^3.1.4",
+    "vscode": "^1.1.25",
+    "tslint": "^5.8.0",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "pretty": "^2.0.0",
+    "shelljs": "^0.8.3"
+  }
+}
