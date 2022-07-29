@@ -21,8 +21,8 @@ import {
   Range,
   EventEmitter,
 } from "vscode";
-import * as TAGS from "./config/ui-tags.json";
-import ATTRS from "./config/ui-attributes.js";
+
+import components from "./config/elements";
 
 const prettyHTML = require("pretty");
 
@@ -233,8 +233,8 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
     let suggestions = [];
 
     let id = 100;
-    for (let tag in TAGS) {
-      suggestions.push(this.buildTagSuggestion(tag, TAGS[tag], id));
+    for (let tag in components) {
+      suggestions.push(this.buildTagSuggestion(tag, components[tag], id));
       id++;
     }
     return suggestions;
@@ -243,12 +243,12 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
   getAttrValueSuggestion(tag: string, attr: string): CompletionItem[] {
     let suggestions = [];
     const values = this.getAttrValues(tag, attr);
-    values.forEach((value) => {
+    for (let val in values) {
       suggestions.push({
-        label: value,
+        label: val,
         kind: CompletionItemKind.Value,
       });
-    });
+    }
     return suggestions;
   }
 
@@ -276,7 +276,12 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
       if (attrItem && (!prefix.trim() || this.firstCharsEqual(attr, prefix))) {
         const sug = this.buildAttrSuggestion(
           { attr, tag, bind, method },
-          attrItem
+          {
+            description: attrItem.description,
+            type: attrItem.type,
+            optionType: attrItem.type,
+            defaultValue: attrItem.default,
+          }
         );
         sug && suggestions.push(sug);
       }
@@ -296,6 +301,14 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
     const snippets = [];
     let index = 0;
     let that = this;
+    let defaults = [];
+    for (let attr in tagVal.attributes) {
+      const attrObj = tagVal.attributes[attr];
+
+      if (attrObj.isRequired) {
+        defaults.push(attr);
+      }
+    }
     function build(tag, { subtags, defaults }, snippets) {
       let attrs = "";
       defaults &&
@@ -304,10 +317,11 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
         });
       snippets.push(`${index > 0 ? "<" : ""}${tag}${attrs}>`);
       index++;
-      subtags && subtags.forEach((item) => build(item, TAGS[item], snippets));
+      subtags &&
+        subtags.forEach((item) => build(item, components[item], snippets));
       snippets.push(`</${tag}>`);
     }
-    build(tag, tagVal, snippets);
+    build(tag, { subtags: [], defaults }, snippets);
 
     return {
       label: tag,
@@ -318,8 +332,8 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
         )
       ),
       kind: CompletionItemKind.Module,
-      detail: "Flow Design",
-      documentation: tagVal.description,
+      detail: tagVal.description,
+      documentation: tagVal.docLink,
     };
   }
 
@@ -355,7 +369,7 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
 
   getAttrValues(tag, attr) {
     let attrItem = this.getAttrItem(tag, attr);
-    let options = attrItem && attrItem.options;
+    let options = attrItem && attrItem.values;
     if (!options && attrItem) {
       if (attrItem.type === "boolean") {
         options = ["true", "false"];
@@ -365,11 +379,16 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
   }
 
   getTagAttrs(tag: string) {
-    return (TAGS[tag] && TAGS[tag].attributes) || [];
+    let attrs = [];
+    for (let attr in components[tag].attributes) {
+      attrs.push(attr);
+    }
+
+    return attrs;
   }
 
   getAttrItem(tag: string | undefined, attr: string | undefined) {
-    return ATTRS[`${tag}/${attr}`] || ATTRS[attr];
+    return components[tag].attributes[attr];
   }
 
   isAttrValueStart(tag: Object | string | undefined, attr) {

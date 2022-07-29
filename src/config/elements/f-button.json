@@ -1,0 +1,135 @@
+{
+  "f-button": {
+    "title": "Button",
+    "description": "Buttons allow users to perform an action or to initiate a new function.",
+    "docLink": "https://docs.google.com/document/d/1jwpo28kx61ybL3AOVzD2XaJ-aogZSThCTHtFWeqqMp8/edit?usp=sharing",
+    "category": "atoms",
+    "attributes": {
+      "variant": {
+        "description": "A combination of properties which creates various visual styles.",
+        "isRequired": false,
+        "type": "string",
+        "default": "fill",
+        "values": {
+          "fill": {
+            "description": "Solid with background fill."
+          },
+          "outline": {
+            "description": "Outline with no background fill (ghost button)."
+          },
+          "transparent": {
+            "description": "No outline or background fill."
+          }
+        }
+      },
+      "state": {
+        "description": "Indicate various degrees of emphasis of the action.",
+        "isRequired": false,
+        "type": "string",
+        "default": "primary",
+        "values": {
+          "primary": {
+            "description": "Strong emphasis. Reserved for essential actions."
+          },
+          "success": {
+            "description": "Indicating success and positive results."
+          },
+          "danger": {
+            "description": "Distructive actions and negative consequences. Eg: Delete, Remove, Destroy"
+          },
+          "warning": {
+            "description": "To indicate discouragement. Not always distructive."
+          },
+          "subtle": {
+            "description": "Actions with little prominence"
+          }
+        }
+      },
+      "size": {
+        "description": "size of button",
+        "isRequired": false,
+        "type": "string",
+        "default": "medium",
+        "values": {
+          "large": {
+            "description": "large"
+          },
+          "medium": { "description": "medium" },
+          "small": { "description": "small" },
+          "x-small": { "description": "x-small" }
+        }
+      },
+      "shape": {
+        "description": "Use it based on the app's style.",
+        "isRequired": false,
+        "type": "string",
+        "default": "round",
+        "values": {
+          "round": {
+            "description": "Has fully rounded corners."
+          },
+          "curved": {
+            "description": "Has subtle curve on all 4 corners."
+          },
+          "blocked": {
+            "description": "Has no corner radius. It takes the width of the parent."
+          }
+        }
+      },
+      "loading": {
+        "description": "Indicates a loading state. Loader replaces the content button. Loading state doesn't change the width of the button.",
+        "isRequired": false,
+        "default": false
+      },
+      "disabled": {
+        "description": "Indicates a disabled state.",
+        "isRequired": false,
+        "default": false
+      },
+      "selected": {
+        "description": "Indicates a selected state. Can be used for toggle actions.",
+        "isRequired": false,
+        "default": false
+      },
+      "focused": {
+        "description": "Shows a focus outlines around the button.",
+        "isRequired": false,
+        "default": false
+      },
+      "label-wrap": {
+        "description": "Allows wrapping the button label upto 2 lines.",
+        "isRequired": false,
+        "default": false
+      },
+      "label": {
+        "description": "Allows wrapping the button label upto 2 lines.",
+        "isRequired": true,
+        "type": "string"
+      },
+      "icon-left": {
+        "description": "An icon on the left of the label of a button.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      },
+      "icon-right": {
+        "description": "An icon on the right of the label of a button.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      },
+      "counter": {
+        "description": "Enables a counter on right end of the button. It's used to show stats on the button.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      },
+      "tooltip": {
+        "description": "Shows a tooltip on button hover. Default value is `inherit` which replacates the label of the button.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      }
+    }
+  }
+}

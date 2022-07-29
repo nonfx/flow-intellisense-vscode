@@ -2,7 +2,7 @@
   "name": "flow-intellisense-vscode",
   "displayName": "Flow Intellisense for flow design system",
   "description": "flow library intellisense for vscode [*.vue, *.html]",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "publisher": "dev-vikas",
   "repository": {
     "type": "git",
@@ -19,18 +19,18 @@
   "activationEvents": [
     "onLanguage:html",
     "onLanguage:vue",
-    "onCommand:flow-helper.search"
+    "onCommand:flow-hint.search"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "flow-helper.search",
-        "title": "flow-helper.search"
+        "command": "flow-hint.search",
+        "title": "flow-hint.search"
       }
     ],
     "keybindings": [
       {
-        "command": "flow-helper.search",
+        "command": "flow-hint.search",
         "key": "shift+cmd+i",
         "when": "editorTextFocus"
       }

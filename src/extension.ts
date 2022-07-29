@@ -9,12 +9,13 @@ import {
   AntdvCompletionItemProvider,
 } from "./app";
 
-import COMPONENTS from "./config/components.js";
+import configs from "./config/elements";
 
 const components = [];
-Object.keys(COMPONENTS).forEach((item) => {
+Object.keys(configs).forEach((item) => {
   components.push({
-    ...COMPONENTS[item],
+    tag: item,
+    ...configs[item],
     path: item,
   });
 });
@@ -43,6 +44,10 @@ export function activate(context: vscode.ExtensionContext) {
         scheme: "file",
       },
       {
+        language: "typescript",
+        scheme: "file",
+      },
+      {
         language: "html",
         scheme: "file",
       },
@@ -65,8 +70,9 @@ export function activate(context: vscode.ExtensionContext) {
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand("flow-helper.search", () => {
-    vscode.window.showInformationMessage("Hello from flow!");
+  let disposable = vscode.commands.registerCommand("flow-hint.search", () => {
+    vscode.window.showInformationMessage("Hello from flow 2!");
+    console.log(components);
     // if (context.workspaceState.get('flow-helper.loading', false)) {
     //     vscode.window.showInformationMessage('Document is initializing, please wait a minute depend on your network.');
     //     return;
@@ -74,6 +80,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     switch (vscode.window.activeTextEditor.document.languageId) {
       case "vue":
+      case "typescript":
       case "html":
         break;
       default:
@@ -84,9 +91,9 @@ export function activate(context: vscode.ExtensionContext) {
     let items = components.map((item) => {
       return {
         label: item.tag,
-        detail: item.title.toLocaleLowerCase() + " " + item.subtitle,
+        detail: item.category,
         path: item.path,
-        description: item.type,
+        description: item.description,
       };
     });
 
