@@ -8,7 +8,8 @@
     "rootDir": "src",
     "allowJs": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true
     // "strictPropertyInitialization": false,
     /* Strict Type-Checking Option */
     // "strict": true,   /* enable all strict type-checking options */

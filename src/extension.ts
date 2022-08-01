@@ -3,19 +3,19 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import {
-  App,
-  AntdvDocsContentProvider,
-  FlowCompletionItemProvider,
-} from "./app";
+import { App, AntdvDocsContentProvider, FlowElementMeta } from "./app";
 
 import configs from "./config/elements";
+import FlowCompletionItemProvider from "./FlowCompletionProvider";
 
-const components = [];
+const components: ({
+  tag: string;
+  path: string;
+} & FlowElementMeta)[] = [];
 Object.keys(configs).forEach((item) => {
   components.push({
     tag: item,
-    ...configs[item],
+    ...(configs as unknown as Record<string, FlowElementMeta>)[item],
     path: item,
   });
 });
@@ -71,14 +71,14 @@ export function activate(context: vscode.ExtensionContext) {
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand("flow-hint.search", () => {
-    vscode.window.showInformationMessage("Hello from flow 2!");
-    console.log(components);
+    vscode.window.showInformationMessage("Welcome to flow design system");
+
     // if (context.workspaceState.get('flow-helper.loading', false)) {
     //     vscode.window.showInformationMessage('Document is initializing, please wait a minute depend on your network.');
     //     return;
     // }
 
-    switch (vscode.window.activeTextEditor.document.languageId) {
+    switch (vscode.window.activeTextEditor?.document.languageId) {
       case "vue":
       case "typescript":
       case "html":
