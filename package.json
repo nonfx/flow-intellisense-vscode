@@ -19,18 +19,18 @@
   "activationEvents": [
     "onLanguage:html",
     "onLanguage:vue",
-    "onCommand:flow-hint.search"
+    "onCommand:flow-core.search"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "flow-hint.search",
-        "title": "flow-hint.search"
+        "command": "flow-core.search",
+        "title": "Flow core search"
       }
     ],
     "keybindings": [
       {
-        "command": "flow-hint.search",
+        "command": "flow-core.search",
         "key": "shift+cmd+i",
         "when": "editorTextFocus"
       }

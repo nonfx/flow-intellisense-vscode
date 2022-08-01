@@ -139,7 +139,7 @@ const HTML_CONTENT = (query: Query) => {
     </body>`;
 };
 
-export class AntdvDocsContentProvider implements TextDocumentContentProvider {
+export class FlowDocsContentProvider implements TextDocumentContentProvider {
   private _onDidChange = new EventEmitter<Uri>();
 
   get onDidChange(): Event<Uri> {

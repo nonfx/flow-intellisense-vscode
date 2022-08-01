@@ -1,9 +1,7 @@
-"use strict";
-
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import { App, AntdvDocsContentProvider, FlowElementMeta } from "./app";
+import { App, FlowElementMeta, FlowDocsContentProvider } from "./app";
 
 import configs from "./config/elements";
 import FlowCompletionItemProvider from "./FlowCompletionProvider";
@@ -30,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
   let app = new App();
   app.setConfig();
-  let docs = new AntdvDocsContentProvider();
+  let docs = new FlowDocsContentProvider();
   let completionItemProvider = new FlowCompletionItemProvider();
   let registration = vscode.workspace.registerTextDocumentContentProvider(
     "flow-helper",
@@ -70,7 +68,7 @@ export function activate(context: vscode.ExtensionContext) {
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand("flow-hint.search", () => {
+  let disposable = vscode.commands.registerCommand("flow-core.search", () => {
     vscode.window.showInformationMessage("Welcome to flow design system");
 
     // if (context.workspaceState.get('flow-helper.loading', false)) {
