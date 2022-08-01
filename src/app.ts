@@ -20,6 +20,7 @@ import {
   SnippetString,
   Range,
   EventEmitter,
+  CompletionContext,
 } from "vscode";
 
 import components from "./config/elements";
@@ -155,9 +156,10 @@ export class AntdvDocsContentProvider implements TextDocumentContentProvider {
   }
 }
 
-export class AntdvCompletionItemProvider implements CompletionItemProvider {
+export class FlowCompletionItemProvider implements CompletionItemProvider {
   private _document: TextDocument;
   private _position: Position;
+  private _triggerCharacter: string;
   private tagReg: RegExp = /<([\w-]+)\s+/g;
   private attrReg: RegExp = /(?:\(|\s*)(\w+)=['"][^'"]*/;
   private tagStartReg: RegExp = /<([\w-]*)$/;
@@ -241,12 +243,25 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
   }
 
   getAttrValueSuggestion(tag: string, attr: string): CompletionItem[] {
-    let suggestions = [];
+    let suggestions: CompletionItem[] = [];
     const values = this.getAttrValues(tag, attr);
+
+    let charPos = this._position.character;
+    charPos += this._triggerCharacter === " " ? -1 : 0;
+
     for (let val in values) {
+      const rangeOfSelectedValue = new Range(
+        this._position.with({
+          character: charPos,
+        }),
+        this._position.with({
+          character: charPos,
+        })
+      );
       suggestions.push({
         label: val,
         kind: CompletionItemKind.Value,
+        range: rangeOfSelectedValue,
       });
     }
     return suggestions;
@@ -425,10 +440,12 @@ export class AntdvCompletionItemProvider implements CompletionItemProvider {
   provideCompletionItems(
     document: TextDocument,
     position: Position,
-    token: CancellationToken
+    token: CancellationToken,
+    completionContext: CompletionContext
   ): ProviderResult<CompletionItem[] | CompletionList> {
     this._document = document;
     this._position = position;
+    this._triggerCharacter = completionContext.triggerCharacter;
 
     const config = workspace.getConfiguration("flow-helper");
     this.size = config.get("indent-size");

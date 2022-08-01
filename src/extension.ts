@@ -6,7 +6,7 @@ import * as vscode from "vscode";
 import {
   App,
   AntdvDocsContentProvider,
-  AntdvCompletionItemProvider,
+  FlowCompletionItemProvider,
 } from "./app";
 
 import configs from "./config/elements";
@@ -26,12 +26,12 @@ export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
   console.log(
-    'Congratulations, your extension "flow-intellisense-poc" is now active!'
+    'Congratulations, your extension "flow-intellisense-vscode" is now active!'
   );
   let app = new App();
   app.setConfig();
   let docs = new AntdvDocsContentProvider();
-  let completionItemProvider = new AntdvCompletionItemProvider();
+  let completionItemProvider = new FlowCompletionItemProvider();
   let registration = vscode.workspace.registerTextDocumentContentProvider(
     "flow-helper",
     docs
