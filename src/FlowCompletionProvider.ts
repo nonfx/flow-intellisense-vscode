@@ -13,47 +13,22 @@ import {
   workspace,
 } from "vscode";
 import { FlowElementAttributeMeta, FlowElementMeta } from "./app";
+import FlowBaseProvider, { TagObject } from "./FlowBaseProvider";
 
 import componentmeta from "./config/elements";
 const components = componentmeta as unknown as Record<string, FlowElementMeta>;
 
 const prettyHTML = require("pretty");
 
-export interface TagObject {
-  text: string;
-  offset: number;
-}
-
 export default class FlowCompletionItemProvider
+  extends FlowBaseProvider
   implements CompletionItemProvider
 {
-  private _document!: TextDocument;
-  private _position!: Position;
-  private _triggerCharacter!: string | undefined;
-  private tagReg: RegExp = /<([\w-]+)\s+/g;
-  private attrReg: RegExp = /(?:\(|\s*)(\w+)=['"][^'"]*/;
-  private tagStartReg: RegExp = /<([\w-]*)$/;
-  private pugTagStartReg: RegExp = /^\s*[\w-]*$/;
+  constructor() {
+    super();
+  }
   private size!: number | undefined;
   private quotes!: string;
-
-  getPreTag(): TagObject | undefined {
-    let line = this._position.line;
-    let tag: TagObject | string | undefined;
-    let txt = this.getTextBeforePosition(this._position);
-
-    while (this._position.line - line < 10 && line >= 0) {
-      if (line !== this._position.line) {
-        txt = this._document.lineAt(line).text;
-      }
-      tag = this.matchTag(this.tagReg, txt, line);
-
-      if (tag === "break") return;
-      if (tag) return <TagObject>tag;
-      line--;
-    }
-    return;
-  }
 
   getPreAttr(): string {
     let txt = this.getTextBeforePosition(this._position).replace(
@@ -75,36 +50,6 @@ export default class FlowCompletionItemProvider
     return (!/"[^"]*"/.test(txt) && match && match[1]) || "";
   }
 
-  matchTag(
-    reg: RegExp,
-    txt: string,
-    line: number
-  ): TagObject | string | undefined {
-    let match: RegExpExecArray | null;
-    let arr: TagObject[] = [];
-
-    if (
-      /<\/?[-\w]+[^<>]*>[\s\w]*<?\s*[\w-]*$/.test(txt) ||
-      (this._position.line === line &&
-        (/^\s*[^<]+\s*>[^<\/>]*$/.test(txt) ||
-          /[^<>]*<$/.test(txt[txt.length - 1])))
-    ) {
-      return "break";
-    }
-    while ((match = reg.exec(txt))) {
-      arr.push({
-        text: match[1],
-        offset: this._document.offsetAt(new Position(line, match.index)),
-      });
-    }
-    return arr.pop();
-  }
-
-  getTextBeforePosition(position: Position): string {
-    var start = new Position(position.line, 0);
-    var range = new Range(start, position);
-    return this._document.getText(range);
-  }
   getTagSuggestion() {
     let suggestions = [];
 
