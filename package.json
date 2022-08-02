@@ -9,7 +9,7 @@
     "url": "https://github.com/cldcvr/flow-intellisense-vscode.git"
   },
   "engines": {
-    "vscode": "^1.30.0"
+    "vscode": "^1.32.0"
   },
   "icon": "flow.png",
   "categories": [
@@ -60,15 +60,14 @@
     "vscode:prepublish": "sh build.sh",
     "compile": "sh build.sh",
     "watch": "sh build.sh --watch",
-    "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "typescript": "^3.1.4",
-    "vscode": "^1.1.25",
-    "tslint": "^5.8.0",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^8.10.25",
-    "@types/mocha": "^2.2.42"
+    "@types/vscode": "^1.69.0",
+    "tslint": "^5.8.0",
+    "typescript": "^3.1.4"
   },
   "dependencies": {
     "pretty": "^2.0.0",

@@ -27,28 +27,8 @@ export default class FlowCompletionItemProvider
   constructor() {
     super();
   }
-  private size!: number | undefined;
-  private quotes!: string;
 
-  getPreAttr(): string {
-    let txt = this.getTextBeforePosition(this._position).replace(
-      /"[^'"]*(\s*)[^'"]*$/,
-      ""
-    );
-    let end = this._position.character;
-    let start = txt.lastIndexOf(" ", end) + 1;
-    let parsedTxt = this._document.getText(
-      new Range(this._position.line, start, this._position.line, end)
-    );
-
-    return this.matchAttr(this.attrReg, parsedTxt);
-  }
-
-  matchAttr(reg: RegExp, txt: string): string {
-    let match: RegExpExecArray | null;
-    match = reg.exec(txt);
-    return (!/"[^"]*"/.test(txt) && match && match[1]) || "";
-  }
+  private _triggerCharacter!: string | undefined;
 
   getTagSuggestion() {
     let suggestions = [];
@@ -64,23 +44,27 @@ export default class FlowCompletionItemProvider
   getAttrValueSuggestion(tag: string, attr: string): CompletionItem[] {
     let suggestions: CompletionItem[] = [];
     const values = this.getAttrValues(tag, attr);
+    const textBefore = this.getTextBeforePosition(this._position);
+    let charPos = textBefore.lastIndexOf(`"`) + 1;
 
-    let charPos = this._position.character;
-    charPos += this._triggerCharacter === " " ? -1 : 0;
+    const lineTxt = this.getLineText(this._position.line);
+
+    const toReplacePos = lineTxt.indexOf(`"`, this._position.character);
 
     for (let val in values) {
-      const rangeOfSelectedValue = new Range(
-        this._position.with({
-          character: charPos,
-        }),
-        this._position.with({
-          character: charPos,
-        })
-      );
       suggestions.push({
         label: val,
         kind: CompletionItemKind.Value,
-        range: rangeOfSelectedValue,
+        range: {
+          inserting: new Range(
+            new Position(this._position.line, charPos),
+            new Position(this._position.line, charPos + val.length + 1)
+          ),
+          replacing: new Range(
+            new Position(this._position.line, charPos),
+            new Position(this._position.line, toReplacePos)
+          ),
+        },
       });
     }
     return suggestions;
@@ -89,13 +73,15 @@ export default class FlowCompletionItemProvider
   getAttrSuggestion(tag: string) {
     let suggestions: CompletionItem[] = [];
     let tagAttrs = this.getTagAttrs(tag);
+
     let preText = this.getTextBeforePosition(this._position);
     let prefix =
       preText
         .replace(/['"]([^'"]*)['"]$/, "")
         .split(/\s|\(+/)
         .pop() || "";
-    if (prefix) {
+
+    if (prefix != undefined) {
       // method attribute
       const method = prefix[0] === "@";
       // bind attribute
@@ -106,6 +92,7 @@ export default class FlowCompletionItemProvider
       if (/[^@:a-zA-z\s]/.test(prefix[0])) {
         return suggestions;
       }
+
       if (prefix != undefined) {
         tagAttrs.forEach((attr) => {
           const attrItem = this.getAttrItem(tag, attr);
@@ -304,6 +291,7 @@ export default class FlowCompletionItemProvider
 
     let tag: TagObject | undefined = this.getPreTag();
     let attr = this.getPreAttr();
+
     if (this.isAttrValueStart(tag, attr)) {
       return this.getAttrValueSuggestion(tag ? tag.text : "", attr || "");
     } else if (this.isAttrStart(tag)) {

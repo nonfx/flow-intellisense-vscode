@@ -7,12 +7,13 @@ export type TagObject = {
 export default class FlowBaseProvider {
   protected _document!: TextDocument;
   protected _position!: Position;
-  protected _triggerCharacter!: string | undefined;
+
   protected tagReg: RegExp = /<([\w-]+)\s+/g;
   protected attrReg: RegExp = /(?:\(|\s*)(\w+)=['"][^'"]*/;
   protected tagStartReg: RegExp = /<([\w-]*)$/;
   protected pugTagStartReg: RegExp = /^\s*[\w-]*$/;
-
+  protected size!: number | undefined;
+  protected quotes!: string;
   constructor() {}
   getPreTag(): TagObject | undefined {
     let line = this._position.line;
@@ -37,7 +38,20 @@ export default class FlowBaseProvider {
     var range = new Range(start, position);
     return this._document.getText(range);
   }
+  getLineText(line: number): string {
+    return this._document.lineAt(line).text;
+  }
+  getAllTextBeforePosition(position: Position): string {
+    var start = new Position(0, 0);
+    var range = new Range(start, position);
+    return this._document.getText(range);
+  }
 
+  getAllTextAfterPosition(position: Position): string {
+    var end = new Position(this._document.lineCount - 1, this._document.eol);
+    var range = new Range(position, end);
+    return this._document.getText(range);
+  }
   matchTag(
     reg: RegExp,
     txt: string,
@@ -61,5 +75,73 @@ export default class FlowBaseProvider {
       });
     }
     return arr.pop();
+  }
+
+  getPreAttr(): string {
+    let txt = this.getTextBeforePosition(this._position).replace(
+      /"[^'"]*(\s*)[^'"]*$/,
+      ""
+    );
+    let end = this._position.character;
+    let start = txt.lastIndexOf(" ", end) + 1;
+    let parsedTxt = this._document.getText(
+      new Range(this._position.line, start, this._position.line, end)
+    );
+
+    return this.matchAttr(this.attrReg, parsedTxt);
+  }
+
+  matchAttr(reg: RegExp, txt: string): string {
+    let match: RegExpExecArray | null;
+    match = reg.exec(txt);
+    return (!/"[^"]*"/.test(txt) && match && match[1]) || "";
+  }
+  getTagName(): string {
+    const txt = this.getAllTextBeforePosition(this._position);
+
+    const tagStartIndex = txt.lastIndexOf("<");
+    const aftertxt = this.getAllTextAfterPosition(this._position);
+
+    const tagEndIndex = aftertxt.indexOf(">");
+
+    const tagText =
+      txt.substring(tagStartIndex) + aftertxt.substring(0, tagEndIndex + 1);
+
+    if (tagText.indexOf(" ") > -1) {
+      return tagText
+        .substring(tagText.indexOf("<") + 1, tagText.indexOf(" "))
+        .trim();
+    } else {
+      return tagText
+        .substring(tagText.indexOf("</") + 2, tagText.indexOf(">"))
+        .trim();
+    }
+  }
+
+  getAttrName(): string | null {
+    const txt = this.getAllTextBeforePosition(this._position);
+
+    const attrStartIndex = txt.lastIndexOf(" ");
+
+    let attrEndIndex = txt.lastIndexOf("=");
+    if (
+      attrStartIndex > -1 &&
+      attrEndIndex > -1 &&
+      attrEndIndex > attrStartIndex
+    ) {
+      const attrText = txt.substring(attrStartIndex, attrEndIndex);
+
+      return attrText.trim();
+    } else {
+      const aftertxt = this.getAllTextAfterPosition(this._position);
+      attrEndIndex = aftertxt.indexOf("=");
+      if (attrStartIndex > -1 && attrEndIndex > -1) {
+        const attrText =
+          txt.substring(attrStartIndex) + aftertxt.substring(0, attrEndIndex);
+
+        return attrText.trim();
+      }
+    }
+    return null;
   }
 }

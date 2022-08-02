@@ -5,6 +5,7 @@ import { App, FlowElementMeta, FlowDocsContentProvider } from "./app";
 
 import configs from "./config/elements";
 import FlowCompletionItemProvider from "./FlowCompletionProvider";
+import FlowHoverProvider from "./FlowHoverProvider";
 
 const components: ({
   tag: string;
@@ -35,21 +36,23 @@ export function activate(context: vscode.ExtensionContext) {
     docs
   );
 
+  const docSelector = [
+    {
+      language: "vue",
+      scheme: "file",
+    },
+    {
+      language: "typescript",
+      scheme: "file",
+    },
+    {
+      language: "html",
+      scheme: "file",
+    },
+  ];
+
   let completion = vscode.languages.registerCompletionItemProvider(
-    [
-      {
-        language: "vue",
-        scheme: "file",
-      },
-      {
-        language: "typescript",
-        scheme: "file",
-      },
-      {
-        language: "html",
-        scheme: "file",
-      },
-    ],
+    docSelector,
     completionItemProvider,
     "",
     " ",
@@ -64,7 +67,11 @@ export function activate(context: vscode.ExtensionContext) {
   let vueLanguageConfig = vscode.languages.setLanguageConfiguration("vue", {
     wordPattern: app.WORD_REG,
   });
-
+  const hoverProvider = new FlowHoverProvider();
+  let hover = vscode.languages.registerHoverProvider(
+    docSelector,
+    hoverProvider
+  );
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
@@ -120,7 +127,8 @@ export function activate(context: vscode.ExtensionContext) {
     disposable,
     registration,
     completion,
-    vueLanguageConfig
+    vueLanguageConfig,
+    hover
   );
 }
 
