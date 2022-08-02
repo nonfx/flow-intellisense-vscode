@@ -35,10 +35,13 @@ export default class FlowHoverProvider
     let tag = this.getTagName();
     let attr = this.getAttrName();
     if (tag && components[tag] && attr) {
-      const md = new MarkdownString(`\`\`\` ${
-        JSON.stringify(components[tag].attributes[attr]) + `\`\`\``
-      }
-		`);
+      const attrMeta = components[tag].attributes[attr];
+      const md = new MarkdownString(`#### ${tag}:${attr}
+##### ${attrMeta.description} 
+- type : \`\`\`${attrMeta.type}\`\`\`
+- default :\`\`\` ${attrMeta.default}\`\`\`
+- isRequired : \`\`\`${attrMeta.isRequired}\`\`\`
+- values : \`\`\`${Object.keys(attrMeta.values).join(" | ")}\`\`\``);
       return {
         contents: [md],
       };

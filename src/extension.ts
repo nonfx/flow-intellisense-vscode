@@ -6,6 +6,8 @@ import { App, FlowElementMeta, FlowDocsContentProvider } from "./app";
 import configs from "./config/elements";
 import FlowCompletionItemProvider from "./FlowCompletionProvider";
 import FlowHoverProvider from "./FlowHoverProvider";
+import validate from "./FlowDocValidator";
+import { window } from "vscode";
 
 const components: ({
   tag: string;
@@ -72,6 +74,12 @@ export function activate(context: vscode.ExtensionContext) {
     docSelector,
     hoverProvider
   );
+
+  const collection = vscode.languages.createDiagnosticCollection("flow");
+  const activeDocument = vscode.window.activeTextEditor?.document;
+  if (vscode.window.activeTextEditor && activeDocument) {
+    validate(activeDocument, collection);
+  }
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
@@ -128,7 +136,16 @@ export function activate(context: vscode.ExtensionContext) {
     registration,
     completion,
     vueLanguageConfig,
-    hover
+    hover,
+    vscode.workspace.onDidChangeTextDocument((e) => {
+      collection.delete(e.document.uri);
+      if (activeDocument) {
+        validate(activeDocument, collection);
+      }
+    }),
+    vscode.workspace.onDidCloseTextDocument((document) =>
+      collection.delete(document.uri)
+    )
   );
 }
 
