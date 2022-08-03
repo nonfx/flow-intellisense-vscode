@@ -10,7 +10,7 @@ import {
 } from "vscode";
 import FlowBaseProvider from "./FlowBaseProvider";
 import componentmeta from "./config/elements";
-import { FlowElementMeta } from "./app";
+import { FlowElementAttributeMeta, FlowElementMeta } from "./app";
 const components = componentmeta as unknown as Record<string, FlowElementMeta>;
 export default class FlowHoverProvider
   extends FlowBaseProvider
@@ -34,22 +34,19 @@ export default class FlowHoverProvider
 
     let tag = this.getTagName();
     let attr = this.getAttrName();
+    // console.log(tag, attr);
     if (tag && components[tag] && attr) {
+      // console.log(components[tag].attributes[attr]);
       const attrMeta = components[tag].attributes[attr];
-      const md = new MarkdownString(`#### ${tag}:${attr}
-##### ${attrMeta.description} 
-- type : \`\`\`${attrMeta.type}\`\`\`
-- default :\`\`\` ${attrMeta.default}\`\`\`
-- isRequired : \`\`\`${attrMeta.isRequired}\`\`\`
-- values : \`\`\`${Object.keys(attrMeta.values).join(" | ")}\`\`\``);
+
+      const md = new MarkdownString(getAttrMD(tag, attr, attrMeta));
+      md.supportHtml = true;
       return {
         contents: [md],
       };
     } else if (tag && components[tag]) {
-      const md = new MarkdownString(`\`\`\` ${
-        JSON.stringify(components[tag]) + `\`\`\``
-      }
-	  `);
+      const md = new MarkdownString(getTagMD(tag, components[tag]));
+      md.supportHtml = true;
       return {
         contents: [md],
       };
@@ -59,4 +56,38 @@ export default class FlowHoverProvider
       };
     }
   }
+}
+
+function getAttrMD(
+  tag: string,
+  attr: string,
+  attrMeta: FlowElementAttributeMeta
+) {
+  const values = attrMeta.values
+    ? `- values : \`\`\`${Object.keys(attrMeta.values).join(" | ")}\`\`\``
+    : "";
+
+  return `\`\`\`${attr}\`\`\`\n
+${attrMeta.description} 
+- type : \`\`\`${attrMeta.type}\`\`\`
+- default :\`\`\` ${attrMeta.default}\`\`\`
+- isRequired : \`\`\`${attrMeta.isRequired}\`\`\`
+${values}
+`;
+}
+
+function getTagMD(tag: string, tagMeta: FlowElementMeta) {
+  let attributes = `---
+#### Attributes
+`;
+  Object.keys(tagMeta.attributes).forEach((attr) => {
+    attributes += `
+${getAttrMD(tag, attr, tagMeta.attributes[attr])}`;
+  });
+  return `### ${tagMeta.title}\n${tagMeta.description}
+- HTML Tag : \`\`\`${tag}\`\`\`
+- Category : \`\`\`${tagMeta.category}\`\`\`
+- [Docs](${tagMeta.docLink})
+${attributes}
+`;
 }

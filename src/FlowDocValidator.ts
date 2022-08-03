@@ -20,18 +20,21 @@ export default function validate(
   let flowTagRegex = /<(?=f-.*)(.|\n)*?>/g;
   const documentText = document.getText();
   let flowTags = documentText.match(flowTagRegex);
+  // console.log(flowTags);
   const docIssues: Diagnostic[] = [];
   if (flowTags) {
     const tagPositions = getTagPositions(flowTags, document);
-    // console.log(tagPositions);
+
     tagPositions.forEach((tagMeta) => {
       for (const [attributeName, attrMeta] of Object.entries(
         components[tagMeta.name].attributes
       )) {
+        //check if attribute specified
         const attr = tagMeta.attributes[attributeName];
         if (attr) {
-          const [attrName, value] = attr.attribute.split("=");
-
+          //extract attribute name and value
+          let [attrName, value] = attr.attribute.split("=");
+          value = value.replace(/["']/g, "");
           if (attrName && attrMeta) {
             if (
               attrMeta.isRequired &&
@@ -47,6 +50,24 @@ export default function validate(
                   new DiagnosticRelatedInformation(
                     new Location(document.uri, attr.range),
                     "Blank value not allowed"
+                  ),
+                ],
+              });
+            } else if (
+              attrMeta.values &&
+              !Object.keys(attrMeta.values).includes(value)
+            ) {
+              docIssues.push({
+                code: "",
+                message: `${attrName} has wrong value '${value}'`,
+                range: attr.range,
+                severity: DiagnosticSeverity.Error,
+                source: "",
+                relatedInformation: [
+                  new DiagnosticRelatedInformation(
+                    new Location(document.uri, attr.range),
+                    "Allowed values : " +
+                      Object.keys(attrMeta.values).join(" | ")
                   ),
                 ],
               });

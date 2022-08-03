@@ -77,22 +77,14 @@
         }
       },
       "loading": {
+        "type": "boolean",
         "description": "Indicates a loading state. Loader replaces the content button. Loading state doesn't change the width of the button.",
         "isRequired": false,
         "default": false
       },
       "disabled": {
+        "type": "boolean",
         "description": "Indicates a disabled state.",
-        "isRequired": false,
-        "default": false
-      },
-      "selected": {
-        "description": "Indicates a selected state. Can be used for toggle actions.",
-        "isRequired": false,
-        "default": false
-      },
-      "focused": {
-        "description": "Shows a focus outlines around the button.",
         "isRequired": false,
         "default": false
       },
@@ -120,12 +112,6 @@
       },
       "counter": {
         "description": "Enables a counter on right end of the button. It's used to show stats on the button.",
-        "isRequired": false,
-        "type": "string",
-        "default": null
-      },
-      "tooltip": {
-        "description": "Shows a tooltip on button hover. Default value is `inherit` which replacates the label of the button.",
         "isRequired": false,
         "type": "string",
         "default": null

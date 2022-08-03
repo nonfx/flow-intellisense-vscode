@@ -7,7 +7,6 @@ import configs from "./config/elements";
 import FlowCompletionItemProvider from "./FlowCompletionProvider";
 import FlowHoverProvider from "./FlowHoverProvider";
 import validate from "./FlowDocValidator";
-import { window } from "vscode";
 
 const components: ({
   tag: string;
@@ -139,8 +138,22 @@ export function activate(context: vscode.ExtensionContext) {
     hover,
     vscode.workspace.onDidChangeTextDocument((e) => {
       collection.delete(e.document.uri);
-      if (activeDocument) {
-        validate(activeDocument, collection);
+      if (e.document) {
+        validate(e.document, collection);
+      }
+    }),
+    vscode.window.onDidChangeActiveTextEditor((e) => {
+      if (e) {
+        collection.delete(e?.document.uri);
+        if (e.document) {
+          validate(e.document, collection);
+        }
+      }
+    }),
+    vscode.workspace.onDidChangeTextDocument((e) => {
+      collection.delete(e.document.uri);
+      if (e.document) {
+        validate(e.document, collection);
       }
     }),
     vscode.workspace.onDidCloseTextDocument((document) =>

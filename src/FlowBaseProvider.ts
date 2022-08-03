@@ -119,7 +119,7 @@ export default class FlowBaseProvider {
   }
 
   getAttrName(): string | null {
-    const txt = this.getAllTextBeforePosition(this._position);
+    const txt = this.getTextBeforePosition(this._position);
 
     const attrStartIndex = txt.lastIndexOf(" ");
 
