@@ -297,8 +297,9 @@ export default class FlowCompletionItemProvider
     let tag: TagObject | undefined = { text: this.getTagName(), offset: 0 };
     let attr = this.getPreAttr();
     let pretag: TagObject | string | undefined = this.getPreTag();
+
     if (this.isAttrValueStart(tag, attr)) {
-      // console.log("attribute value suggestions");
+      // console.log("attribute value suggestions", tag);
       return this.getAttrValueSuggestion(tag ? tag.text : "", attr || "");
     } else if (this.isAttrStart(pretag)) {
       //console.log("attribute suggestions");
@@ -309,7 +310,9 @@ export default class FlowCompletionItemProvider
         case "vue":
           return this.notInTemplate() ? [] : this.getTagSuggestion();
         case "html":
-          // todo
+          return this.getTagSuggestion();
+        case "typescript":
+          // todo check for html``
           return this.getTagSuggestion();
       }
     } else {

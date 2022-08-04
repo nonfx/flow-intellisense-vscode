@@ -107,11 +107,23 @@ export default class FlowBaseProvider {
     const tagText =
       txt.substring(tagStartIndex) + aftertxt.substring(0, tagEndIndex + 1);
 
-    if (tagText.indexOf(" ") > -1) {
-      return tagText
-        .substring(tagText.indexOf("<") + 1, tagText.indexOf(" "))
-        .trim();
+    if (
+      tagText.indexOf(" ") > -1 ||
+      tagText.indexOf("\n") > -1 ||
+      tagText.indexOf("\t") > -1
+    ) {
+      const whiteSpaceIndices: number[] = [];
+      [" ", "\t", "\n"].forEach((w) => {
+        const idx = tagText.indexOf(w);
+        if (idx > -1) {
+          whiteSpaceIndices.push(idx);
+        }
+      });
+      const endIndex = Math.min(...whiteSpaceIndices);
+
+      return tagText.substring(tagText.indexOf("<") + 1, endIndex).trim();
     } else {
+      // for this format <span></span>
       return tagText
         .substring(tagText.indexOf("</") + 2, tagText.indexOf(">"))
         .trim();
@@ -138,7 +150,9 @@ export default class FlowBaseProvider {
       if (attrStartIndex > -1 && attrEndIndex > -1) {
         const attrText =
           txt.substring(attrStartIndex) + aftertxt.substring(0, attrEndIndex);
-
+        if (attrText.includes("<")) {
+          return null;
+        }
         return attrText.trim();
       }
     }

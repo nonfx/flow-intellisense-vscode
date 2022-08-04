@@ -34,7 +34,7 @@ export default class FlowHoverProvider
 
     let tag = this.getTagName();
     let attr = this.getAttrName();
-    // console.log(tag, attr);
+    //console.log(tag, ":", attr);
     if (tag && components[tag] && attr) {
       // console.log(components[tag].attributes[attr]);
       const attrMeta = components[tag].attributes[attr];
