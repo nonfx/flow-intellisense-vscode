@@ -289,7 +289,7 @@ export default class FlowCompletionItemProvider
     const normalQuotes = config.get("quotes") === "double" ? '"' : "'";
     this.quotes = normalQuotes;
 
-    let tag: TagObject | undefined = this.getPreTag();
+    let tag: TagObject | undefined = { text: this.getTagName(), offset: 0 };
     let attr = this.getPreAttr();
 
     if (this.isAttrValueStart(tag, attr)) {

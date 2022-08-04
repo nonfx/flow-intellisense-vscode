@@ -14,9 +14,9 @@
 
 ### Usage
 
-* Move cursor to Ant Design Vue tag or select it
+* Move cursor to flow libaray tag or select it
 
-* Press default hot key `shift + cmd + i`(windows: `shift + win + i`) to bring up the Command Palette and then input `flow-helper.search`
+* Press default hot key `shift + cmd + i`(windows: `shift + win + i`) to bring up the Command Palette and then input `flow-core.search`
 
 * Show document view If complete matching,
     or you should select tag you want to search
