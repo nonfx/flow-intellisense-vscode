@@ -71,7 +71,7 @@
           "curved": {
             "description": "Has subtle curve on all 4 corners."
           },
-          "blocked": {
+          "block": {
             "description": "Has no corner radius. It takes the width of the parent."
           }
         }
