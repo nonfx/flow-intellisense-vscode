@@ -11,8 +11,13 @@ import {
   ProviderResult,
   CompletionList,
   workspace,
+  MarkdownString,
 } from "vscode";
-import { FlowElementAttributeMeta, FlowElementMeta } from "./app";
+import {
+  FlowElementAttributeMeta,
+  FlowElementAttributeValueMeta,
+  FlowElementMeta,
+} from "./app";
 import FlowBaseProvider, { TagObject } from "./FlowBaseProvider";
 
 import componentmeta from "./config/elements";
@@ -33,7 +38,7 @@ export default class FlowCompletionItemProvider
   getTagSuggestion() {
     let suggestions = [];
 
-    let id = 100;
+    let id = 0;
     for (let tag in components) {
       suggestions.push(this.buildTagSuggestion(tag, components[tag], id));
       id++;
@@ -54,17 +59,16 @@ export default class FlowCompletionItemProvider
     for (let val in values) {
       suggestions.push({
         label: val,
+        sortText: `0000${val}`,
         kind: CompletionItemKind.Value,
-        range: {
-          inserting: new Range(
-            new Position(this._position.line, charPos),
-            new Position(this._position.line, charPos + val.length + 1)
-          ),
-          replacing: new Range(
-            new Position(this._position.line, charPos),
-            new Position(this._position.line, toReplacePos)
-          ),
-        },
+        detail: `${
+          (values as Record<string, FlowElementAttributeValueMeta>)[val]
+            .description || ""
+        }`,
+        range: new Range(
+          new Position(this._position.line, charPos),
+          new Position(this._position.line, toReplacePos)
+        ),
       });
     }
     return suggestions;
@@ -159,15 +163,15 @@ export default class FlowCompletionItemProvider
 
     return {
       label: tag,
-      sortText: `0${id}${tag}`,
+      sortText: `0000${id}${tag}`,
       insertText: new SnippetString(
         prettyHTML("<" + snippets.join(""), { indent_size: this.size }).substr(
           1
         )
       ),
-      kind: CompletionItemKind.Module,
+      kind: CompletionItemKind.Snippet,
       detail: tagVal.description,
-      documentation: tagVal.docLink,
+      documentation: new MarkdownString(`[Docs](${tagVal.docLink})`),
     };
   }
 
@@ -200,6 +204,7 @@ export default class FlowCompletionItemProvider
       defaultValue && (documentation += "\n" + `default: ${defaultValue}`);
       return {
         label: attr,
+        sortText: `0000${attr}`,
         insertText:
           type && type === "flag"
             ? `${attr} `
@@ -291,12 +296,15 @@ export default class FlowCompletionItemProvider
 
     let tag: TagObject | undefined = { text: this.getTagName(), offset: 0 };
     let attr = this.getPreAttr();
-
+    let pretag: TagObject | string | undefined = this.getPreTag();
     if (this.isAttrValueStart(tag, attr)) {
+      // console.log("attribute value suggestions");
       return this.getAttrValueSuggestion(tag ? tag.text : "", attr || "");
-    } else if (this.isAttrStart(tag)) {
+    } else if (this.isAttrStart(pretag)) {
+      //console.log("attribute suggestions");
       return this.getAttrSuggestion(tag ? tag.text : "");
     } else if (this.isTagStart()) {
+      //console.log("tag suggestions");
       switch (document.languageId) {
         case "vue":
           return this.notInTemplate() ? [] : this.getTagSuggestion();
