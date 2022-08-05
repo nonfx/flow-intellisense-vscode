@@ -2,8 +2,9 @@
 
 > A Visual Studio Code extension that provides intellisense for `@cldcvr/flow-core` elements .
 
-https://user-images.githubusercontent.com/67629551/183013785-16719628-321f-4399-aa1a-6b1568296cd1.mp4
-
+<p align="center">
+  <img width="70%"  src="https://user-images.githubusercontent.com/67629551/183015015-d7050def-eb46-440e-89bf-b6a595a970bb.gif">
+</p>
 
 ## Feature
 
