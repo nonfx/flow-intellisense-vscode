@@ -65,12 +65,6 @@
         "isRequired": false,
         "default": false
       },
-      "focused": {
-        "type": "boolean",
-        "description": "Displays the focus state.",
-        "isRequired": false,
-        "default": false
-      },
       "tooltip": {
         "description": "Displays the focus state.",
         "isRequired": false,

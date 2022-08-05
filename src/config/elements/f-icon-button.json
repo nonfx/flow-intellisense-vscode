@@ -76,6 +76,12 @@
           }
         }
       },
+      "icon": {
+        "description": "Icon on the left of label.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      },
       "loading": {
         "type": "boolean",
         "description": "Displays a loading state. Loader replaces the content.",
@@ -97,30 +103,6 @@
         "description": "Wrap the button label upto 2 lines.",
         "isRequired": true,
         "type": "string"
-      },
-      "icon-left": {
-        "description": "Icon on the left of label.",
-        "isRequired": false,
-        "type": "string",
-        "default": null
-      },
-      "icon-right": {
-        "description": "Icon on the right of label.",
-        "isRequired": false,
-        "type": "string",
-        "default": null
-      },
-      "selected": {
-        "type": "boolean",
-        "description": "Displays a selected state.",
-        "isRequired": false,
-        "default": false
-      },
-      "focused": {
-        "type": "boolean",
-        "description": "Displays the focus state.",
-        "isRequired": false,
-        "default": false
       },
       "tooltip": {
         "description": "Displays the focus state.",

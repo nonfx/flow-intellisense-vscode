@@ -74,14 +74,20 @@
           }
         }
       },
-      "icon": {
+      "counter": {
+        "description": "Displays a counter on the button.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      },
+      "icon-left": {
         "description": "Icon on the left of label.",
         "isRequired": false,
         "type": "string",
         "default": null
       },
-      "counter": {
-        "description": "Displays a counter on the button.",
+      "icon-right": {
+        "description": "Icon on the right of label.",
         "isRequired": false,
         "type": "string",
         "default": null
@@ -95,18 +101,6 @@
       "disabled": {
         "type": "boolean",
         "description": "Displays a disabled state.",
-        "isRequired": false,
-        "default": false
-      },
-      "selected": {
-        "type": "boolean",
-        "description": "Displays a selected state.",
-        "isRequired": false,
-        "default": false
-      },
-      "focused": {
-        "type": "boolean",
-        "description": "Displays the focus state.",
         "isRequired": false,
         "default": false
       },
