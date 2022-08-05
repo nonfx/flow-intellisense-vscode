@@ -7,7 +7,7 @@
     "attributes": {
       "source": {
         "description": "Source property defines what will be displayed on the icon. This could be an icon name from a library , any inline SVG or any URL for the image. ",
-        "isRequired": false,
+        "isRequired": true,
         "type": "string",
         "default": null
       },
@@ -17,8 +17,8 @@
         "type": "string",
         "default": "medium",
         "values": {
-          "x-large": {"description": "large"},
-          "large": {"description": "large"},
+          "x-large": { "description": "large" },
+          "large": { "description": "large" },
           "medium": { "description": "medium" },
           "small": { "description": "small" },
           "x-small": { "description": "x-small" }
