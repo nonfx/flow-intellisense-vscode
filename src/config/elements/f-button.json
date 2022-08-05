@@ -74,6 +74,12 @@
           }
         }
       },
+      "label": {
+        "description": "Displays content on the button.",
+        "isRequired": true,
+        "type": "string",
+        "default": null
+      },
       "counter": {
         "description": "Displays a counter on the button.",
         "isRequired": false,
