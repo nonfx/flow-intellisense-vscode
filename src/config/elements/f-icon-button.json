@@ -1,8 +1,8 @@
 {
-  "f-button": {
-    "title": "Button",
-    "description": "Buttons allow users to perform an action.",
-    "docLink": "https://docs.google.com/document/d/1jwpo28kx61ybL3AOVzD2XaJ-aogZSThCTHtFWeqqMp8/edit?usp=sharing",
+  "f-icon-button": {
+    "title": "Icon Button",
+    "description": "Icon only button",
+    "docLink": "https://docs.google.com/document/d/19XQndhgIxu-66oJ1QFZ4_k32keuRczxQthRtIENWmYk/edit?usp=sharing",
     "category": "atoms",
     "attributes": {
       "variant": {
@@ -12,7 +12,7 @@
         "default": "round",
         "values": {
           "round": {
-            "description": "Button with rounded corners."
+            "description": "Full round button."
           },
           "curved": {
             "description": "Button with curved corners."
@@ -45,7 +45,9 @@
         "type": "string",
         "default": "medium",
         "values": {
-          "large": {"description": "large" },
+          "large": {
+            "description": "large"
+          },
           "medium": { "description": "medium" },
           "small": { "description": "small" },
           "x-small": { "description": "x-small" }
@@ -74,26 +76,8 @@
           }
         }
       },
-      "label": {
-        "description": "Displays content on the button.",
-        "isRequired": true,
-        "type": "string",
-        "default": null
-      },
-      "counter": {
-        "description": "Displays a counter on the button.",
-        "isRequired": false,
-        "type": "string",
-        "default": null
-      },
-      "icon-left": {
+      "icon": {
         "description": "Icon on the left of label.",
-        "isRequired": false,
-        "type": "string",
-        "default": null
-      },
-      "icon-right": {
-        "description": "Icon on the right of label.",
         "isRequired": false,
         "type": "string",
         "default": null
@@ -110,8 +94,24 @@
         "isRequired": false,
         "default": false
       },
+      "label-wrap": {
+        "description": "Wrap the button label upto 2 lines.",
+        "isRequired": false,
+        "default": false
+      },
+      "label": {
+        "description": "Wrap the button label upto 2 lines.",
+        "isRequired": true,
+        "type": "string"
+      },
       "tooltip": {
         "description": "Displays the focus state.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      },
+      "counter": {
+        "description": "Displays a counter on the button.",
         "isRequired": false,
         "type": "string",
         "default": null

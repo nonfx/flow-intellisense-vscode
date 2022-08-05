@@ -1,0 +1,76 @@
+{
+  "f-icon": {
+    "title": "Icon",
+    "description": "Icons are used to provide visual context where written text is not required and enhance usability.",
+    "docLink": "https://docs.google.com/document/d/1kLruoml15fZCo8XUoo48xsNDVgzaDe9freI6XeP7HOs/edit?usp=sharing",
+    "category": "atoms",
+    "attributes": {
+      "source": {
+        "description": "Source property defines what will be displayed on the icon. This could be an icon name from a library , any inline SVG or any URL for the image. ",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      },
+      "size": {
+        "description": "Size of the button",
+        "isRequired": false,
+        "type": "string",
+        "default": "medium",
+        "values": {
+          "x-large": {"description": "large"},
+          "large": {"description": "large"},
+          "medium": { "description": "medium" },
+          "small": { "description": "small" },
+          "x-small": { "description": "x-small" }
+        }
+      },
+      "state": {
+        "description": "Indicate various degrees of emphasis of the action.",
+        "isRequired": false,
+        "type": "string",
+        "default": "primary",
+        "values": {
+          "default": {
+            "description": "Default state."
+          },
+          "secondary": {
+            "description": "Secondary state."
+          },
+          "subtle": {
+            "description": "Subtle state."
+          },
+          "primary": {
+            "description": "Strong emphasis. Reserved for essential actions."
+          },
+          "success": {
+            "description": "Indicating success and positive results."
+          },
+          "danger": {
+            "description": "Distructive actions and negative consequences. Eg: Delete, Remove, Destroy"
+          },
+          "warning": {
+            "description": "To indicate discouragement. Not always distructive."
+          }
+        }
+      },
+      "loading": {
+        "type": "boolean",
+        "description": "Displays a loading state. Loader replaces the content.",
+        "isRequired": false,
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "Displays a disabled state.",
+        "isRequired": false,
+        "default": false
+      },
+      "tooltip": {
+        "description": "Displays the focus state.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      }
+    }
+  }
+}
