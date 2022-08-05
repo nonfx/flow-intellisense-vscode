@@ -133,7 +133,14 @@ export default class FlowBaseProvider {
   getAttrName(): string | null {
     const txt = this.getTextBeforePosition(this._position);
 
-    const attrStartIndex = txt.lastIndexOf(" ");
+    const whiteSpaceIndices: number[] = [];
+    [" ", "\t", "\n"].forEach((w) => {
+      const idx = txt.lastIndexOf(w);
+      if (idx > -1) {
+        whiteSpaceIndices.push(idx);
+      }
+    });
+    const attrStartIndex = Math.max(...whiteSpaceIndices);
 
     let attrEndIndex = txt.lastIndexOf("=");
     if (
