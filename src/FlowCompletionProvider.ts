@@ -293,15 +293,16 @@ export default class FlowCompletionItemProvider
     this.size = config.get("indent-size");
     const normalQuotes = config.get("quotes") === "double" ? '"' : "'";
     this.quotes = normalQuotes;
-
-    let tag: TagObject | undefined = { text: this.getTagName(), offset: 0 };
+    const tagName = this.getTagName();
+    let tag: TagObject | undefined = tagName
+      ? { text: this.getTagName(), offset: 0 }
+      : undefined;
     let attr = this.getPreAttr();
-    let pretag: TagObject | string | undefined = this.getPreTag();
-
+    // console.log(tag, attr);
     if (this.isAttrValueStart(tag, attr)) {
       // console.log("attribute value suggestions", tag);
       return this.getAttrValueSuggestion(tag ? tag.text : "", attr || "");
-    } else if (this.isAttrStart(pretag)) {
+    } else if (this.isAttrStart(tag)) {
       //console.log("attribute suggestions");
       return this.getAttrSuggestion(tag ? tag.text : "");
     } else if (this.isTagStart()) {

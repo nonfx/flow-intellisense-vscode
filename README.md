@@ -1,48 +1,23 @@
 # flow intellisense
 
-> flow intellinse is a VS Code extension for flow component library.
+> A Visual Studio Code extension that provides intellisense for `@cldcvr/flow-core` elements .
 
 
 ## Feature
 
-* Document
+* Gives you autocompletion for tags, attributes and attribute values.
+* Quick info hovers on tags and attribute.
+* Validate attribute values. 
 
-* Snippets
-
-
-## Document
 
 ### Usage
 
-* Move cursor to flow libaray tag or select it
-
-* Press default hot key `shift + cmd + i`(windows: `shift + win + i`) to bring up the Command Palette and then input `flow-core.search`
-
-* Show document view If complete matching,
-    or you should select tag you want to search
-
-* Enter and trigger document browser
+* Go to your `*.html`, `*.vue`, `*.ts` file.
+* Type `<f-` then It starts showing you available tags.
+* Select required tag then it will render tag with mandatory attributes.
+* Type `<space>` or `Ctrl + <space>` in tag for suggestions.
 
 
-
-
-### Keymap
-
-Default hot key is  `shift + cmd + i`( windows: `shift + win + i`). If it has conflicted with other software's hot key. You can customize it. see [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-editor)
-
-
-## Autocomplete
-
-
-
-* Distinguish and auto complete property and method for every Flow component tag
-
-
-
-
-## Contribution
-
-Your pull request will make flow intellinse better.
 
 ## LICENSE
 
