@@ -34,7 +34,11 @@ export type FlowElementAttributeMeta = {
   isRequired: false;
   type: string;
   default: string;
-  values: Record<string, FlowElementAttributeValueMeta>;
+  multiValues?: boolean;
+  values: Record<
+    string,
+    FlowElementAttributeValueMeta | FlowElementAttributeMeta
+  >;
 };
 
 export type FlowElementAttributeValueMeta = {

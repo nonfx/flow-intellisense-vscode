@@ -49,27 +49,50 @@ export default class FlowCompletionItemProvider
   getAttrValueSuggestion(tag: string, attr: string): CompletionItem[] {
     let suggestions: CompletionItem[] = [];
     const values = this.getAttrValues(tag, attr);
+    let attrItem = this.getAttrItem(tag, attr);
+
     const textBefore = this.getTextBeforePosition(this._position);
     let charPos = textBefore.lastIndexOf(`"`) + 1;
 
     const lineTxt = this.getLineText(this._position.line);
 
     const toReplacePos = lineTxt.indexOf(`"`, this._position.character);
+    const existingValue = lineTxt.substring(charPos, toReplacePos).trim();
 
-    for (let val in values) {
-      suggestions.push({
-        label: val,
-        sortText: `0000${val}`,
-        kind: CompletionItemKind.Value,
-        detail: `${
-          (values as Record<string, FlowElementAttributeValueMeta>)[val]
-            .description || ""
-        }`,
-        range: new Range(
-          new Position(this._position.line, charPos),
-          new Position(this._position.line, toReplacePos)
-        ),
-      });
+    if (attrItem.multiValues) {
+      for (let val in values) {
+        suggestions.push({
+          label: val,
+          sortText: `0000${val}`,
+          kind: CompletionItemKind.Value,
+          detail: `${
+            (values as Record<string, FlowElementAttributeValueMeta>)[val]
+              .description || ""
+          }`,
+          range: existingValue.length
+            ? undefined
+            : new Range(
+                new Position(this._position.line, charPos),
+                new Position(this._position.line, toReplacePos)
+              ),
+        });
+      }
+    } else {
+      for (let val in values) {
+        suggestions.push({
+          label: val,
+          sortText: `0000${val}`,
+          kind: CompletionItemKind.Value,
+          detail: `${
+            (values as Record<string, FlowElementAttributeValueMeta>)[val]
+              .description || ""
+          }`,
+          range: new Range(
+            new Position(this._position.line, charPos),
+            new Position(this._position.line, toReplacePos)
+          ),
+        });
+      }
     }
     return suggestions;
   }
@@ -223,13 +246,46 @@ export default class FlowCompletionItemProvider
 
   getAttrValues(tag: string, attr: string) {
     let attrItem = this.getAttrItem(tag, attr);
-    let options = attrItem && attrItem.values;
-    if (!options && attrItem) {
-      if (attrItem.type === "boolean") {
-        options = { true: {}, false: {} };
+    if (attrItem.multiValues) {
+      const multiValueTypes = Object.keys(
+        attrItem.values as Record<string, FlowElementAttributeMeta>
+      );
+      const textBefore = this.getTextBeforePosition(this._position);
+      let charPos = textBefore.lastIndexOf(`"`) + 1;
+
+      const lineTxt = this.getLineText(this._position.line);
+
+      const suggestIdx =
+        lineTxt
+          .substring(charPos, this._position.character)
+          .replace(/^\s+/g, "")
+          .split(" ").length - 1;
+
+      const subValueNameToSuggest = multiValueTypes[suggestIdx];
+
+      const options =
+        attrItem &&
+        attrItem.values &&
+        (attrItem.values[subValueNameToSuggest] as FlowElementAttributeMeta)
+          .values;
+
+      //   console.log(
+      //     "suggestIdx",
+      //     suggestIdx,
+      //     lineTxt.substring(charPos, this._position.character).split(" "),
+      //     subValueNameToSuggest,
+      //     options
+      //   );
+      return options || [];
+    } else {
+      let options = attrItem && attrItem.values;
+      if (!options && attrItem) {
+        if (attrItem.type === "boolean") {
+          options = { true: {}, false: {} };
+        }
       }
+      return options || [];
     }
-    return options || [];
   }
 
   getTagAttrs(tag: string) {

@@ -69,7 +69,7 @@
               "small": {
                 "description": "1px border (default)."
               }
-            },
+            }
           },
           "border-style": {
             "description": "Solid, dashed or dotted borders",
@@ -85,7 +85,7 @@
               "dotted": {
                 "description": "dotted border."
               }
-            },
+            }
           },
           "border-color": {
             "description": "Border color options",
@@ -101,7 +101,7 @@
               "subtle": {
                 "description": "Subtle, usually used as separators in a stack."
               }
-            },
+            }
           },
           "border-position": {
             "description": "Border can display top, bottom, left, right, and around",
@@ -123,8 +123,8 @@
               "around": {
                 "description": "Border shows on all 4 sides."
               }
-            },
-          },
+            }
+          }
         }
       },
       "gap": {
@@ -133,13 +133,15 @@
         "type": "string",
         "default": "small",
         "values": {
-          "auto": {"description": "Items are evenly distributed to fill the space."},
-          "x-large": {"description": "32px gap"},
-          "large": {"description": "24px gap"},
-          "medium": {"description": "16px gap"},
-          "small": {"description": "12px gap (default)"},
-          "x-small": {"description": "8px gap"},
-          "none": {"description": "No gap between the elements"}
+          "auto": {
+            "description": "Items are evenly distributed to fill the space."
+          },
+          "x-large": { "description": "32px gap" },
+          "large": { "description": "24px gap" },
+          "medium": { "description": "16px gap" },
+          "small": { "description": "12px gap (default)" },
+          "x-small": { "description": "8px gap" },
+          "none": { "description": "No gap between the elements" }
         }
       },
       "padding": {
@@ -148,11 +150,11 @@
         "type": "string",
         "default": "none",
         "values": {
-          "large": {"description": "24px padding"},
-          "medium": {"description": "16px padding"},
-          "small": {"description": "12px padding"},
-          "x-small": {"description": "8px padding"},
-          "none": {"description": "No gap between the elements (default)"}
+          "large": { "description": "24px padding" },
+          "medium": { "description": "16px padding" },
+          "small": { "description": "12px padding" },
+          "x-small": { "description": "8px padding" },
+          "none": { "description": "No gap between the elements (default)" }
         }
       },
       "width": {
@@ -212,15 +214,15 @@
         "type": "string",
         "default": "top-left",
         "values": {
-          "left": {"description": "Align left in  the middle."},
-          "center": {"description": "Align center in the middle."},
-          "right": {"description": "Align right in the middle."},
-          "top-left": {"description": "Align top-left."},
-          "top-center": {"description": "Align top-center."},
-          "top-right": {"description": "Align top-right."},
-          "bottom-left": {"description": "Align bottom-left."},
-          "bottom-center": {"description": "Align bottom-center."},
-          "bottom-right": {"description": "Align bottom-right."},
+          "left": { "description": "Align left in  the middle." },
+          "center": { "description": "Align center in the middle." },
+          "right": { "description": "Align right in the middle." },
+          "top-left": { "description": "Align top-left." },
+          "top-center": { "description": "Align top-center." },
+          "top-right": { "description": "Align top-right." },
+          "bottom-left": { "description": "Align bottom-left." },
+          "bottom-center": { "description": "Align bottom-center." },
+          "bottom-right": { "description": "Align bottom-right." }
         }
       },
       "selected": {
@@ -247,10 +249,14 @@
         }
       },
       "loading": {
-        "type": "boolean",
+        "type": "string",
         "description": "Displays a loading state. Shimmer replaces the content.",
         "isRequired": false,
-        "default": false
+        "default": null,
+        "values": {
+          "skeleton": {},
+          "loader": {}
+        }
       },
       "disabled": {
         "type": "boolean",

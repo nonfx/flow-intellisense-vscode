@@ -8,7 +8,7 @@ import {
   Range,
   TextDocument,
 } from "vscode";
-import { FlowElementMeta } from "./app";
+import { FlowElementAttributeMeta, FlowElementMeta } from "./app";
 
 import componentmeta from "./config/elements";
 const components = componentmeta as unknown as Record<string, FlowElementMeta>;
@@ -34,6 +34,7 @@ export default function validate(
         if (attr) {
           //extract attribute name and value
           let [attrName, value] = attr.attribute.split("=");
+
           value = value.replace(/["']/g, "");
           if (attrName && attrMeta) {
             if (
@@ -55,7 +56,8 @@ export default function validate(
               });
             } else if (
               attrMeta.values &&
-              !Object.keys(attrMeta.values).includes(value)
+              !Object.keys(attrMeta.values).includes(value) &&
+              !attrMeta.multiValues
             ) {
               docIssues.push({
                 code: "",
@@ -71,6 +73,47 @@ export default function validate(
                   ),
                 ],
               });
+            } else if (attrMeta.values && attrMeta.multiValues) {
+              let values: string[] = [];
+
+              Object.entries(attrMeta.values).forEach(
+                ([valueType, valueTypeMeta]) => {
+                  const newValues: string[] = [];
+                  if (values.length === 0) {
+                    values = [
+                      ...Object.keys(
+                        (valueTypeMeta as FlowElementAttributeMeta).values
+                      ),
+                    ];
+                  } else {
+                    values.forEach((v) => {
+                      Object.keys(
+                        (valueTypeMeta as FlowElementAttributeMeta).values
+                      ).forEach((sv) => {
+                        newValues.push(v + " " + sv);
+                      });
+                    });
+
+                    values = [...values, ...newValues];
+                  }
+                }
+              );
+
+              if (!values.includes(value)) {
+                docIssues.push({
+                  code: "",
+                  message: `${attrName} has wrong value '${value}'`,
+                  range: attr.range,
+                  severity: DiagnosticSeverity.Error,
+                  source: "",
+                  relatedInformation: [
+                    new DiagnosticRelatedInformation(
+                      new Location(document.uri, attr.range),
+                      "Allowed values : " + values.join(" | ")
+                    ),
+                  ],
+                });
+              }
             }
           }
         } else if (attrMeta.isRequired) {
@@ -145,8 +188,9 @@ function getTagPositions(
       //     tagRange.end.character
       //   );
       let attrRegex =
-        /(\S+)=["'{]((?:.(?!["']?\s+(?:\S+)=|\s*\/?[>"']))+.)?(\s*?)["'}]/gm;
+        /(\S+)=["'{\$]((?:.(?!["'\}]?\s+(?:\S+)=|\s*\/?[>"']))+.)?(\s*?)["'}]/gm;
       let attrs = tag.match(attrRegex);
+
       let lastAttrEndIndex = 0;
       attrs?.forEach((attr) => {
         const attrStartIndex = tag.indexOf(attr, lastAttrEndIndex);
@@ -164,8 +208,14 @@ function getTagPositions(
           startPosition.line
         );
         const attrRange = new Range(attrStartPosition, attrEndPosition);
+        const attrName = attr
+          .split("=")[0]
+          .replace(".", "")
+          .replace(":", "")
+          .replace("[", "")
+          .replace("]", "");
 
-        elementRange.attributes[attr.split("=")[0]] = {
+        elementRange.attributes[attrName] = {
           range: attrRange,
           attribute: attr,
         };

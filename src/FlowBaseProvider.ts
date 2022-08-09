@@ -150,7 +150,12 @@ export default class FlowBaseProvider {
     ) {
       const attrText = txt.substring(attrStartIndex, attrEndIndex);
 
-      return attrText.trim();
+      return attrText
+        .trim()
+        .replace(".", "")
+        .replace(":", "")
+        .replace("[", "")
+        .replace("]", "");
     } else {
       const aftertxt = this.getAllTextAfterPosition(this._position);
       attrEndIndex = aftertxt.indexOf("=");
@@ -160,7 +165,12 @@ export default class FlowBaseProvider {
         if (attrText.includes("<")) {
           return null;
         }
-        return attrText.trim();
+        return attrText
+          .trim()
+          .replace(".", "")
+          .replace(":", "")
+          .replace("[", "")
+          .replace("]", "");
       }
     }
     return null;
