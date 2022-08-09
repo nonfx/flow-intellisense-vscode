@@ -1,5 +1,5 @@
 {
-  "f-button": {
+  "f-div": {
     "title": "f-div",
     "description": "F-div is used as a container for HTML elements, atom, molecules, etc.",
     "docLink": "https://docs.google.com/document/d/1X2i89A34pOnnTarzDDbEfP_GdK7sUBshr4gvX5ZEcPY/edit?usp=sharing",
@@ -19,7 +19,7 @@
           }
         }
       },
-      "fill": {
+      "state": {
         "description": "Fill property defines the background color of a f-div.",
         "isRequired": false,
         "type": "string",
@@ -36,6 +36,15 @@
           },
           "tertiary": {
             "description": "For layers above the default surface"
+          },
+          "success": {
+            "description": "Success"
+          },
+          "danger": {
+            "description": "Distructive actions and negative consequences. Eg: Delete, Remove, Destroy"
+          },
+          "warning": {
+            "description": "To indicate discouragement. Not always distructive."
           }
         }
       },
@@ -116,29 +125,6 @@
               }
             },
           },
-        }
-      },
-      "state": {
-        "description": "Indicate various degrees of emphasis of the action.",
-        "isRequired": false,
-        "type": "string",
-        "default": "primary",
-        "values": {
-          "primary": {
-            "description": "Strong emphasis. Reserved for essential actions."
-          },
-          "success": {
-            "description": "Indicating success and positive results."
-          },
-          "danger": {
-            "description": "Distructive actions and negative consequences. Eg: Delete, Remove, Destroy"
-          },
-          "warning": {
-            "description": "To indicate discouragement. Not always distructive."
-          },
-          "subtle": {
-            "description": "Actions with little prominence"
-          }
         }
       },
       "gap": {
@@ -241,8 +227,11 @@
         "description": "Sets the f-div to a selected state. Select between border, background, or notch based on your usecase",
         "isRequired": false,
         "type": "string",
-        "default": "background",
+        "default": "none",
         "values": {
+          "none": {
+            "description": "Not in selected state."
+          },
           "background": {
             "description": "Changes the background to reflect a selected state."
           },
