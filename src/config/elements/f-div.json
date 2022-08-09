@@ -1,0 +1,275 @@
+{
+  "f-div": {
+    "title": "f-div",
+    "description": "F-div is used as a container for HTML elements, atom, molecules, etc.",
+    "docLink": "https://docs.google.com/document/d/1X2i89A34pOnnTarzDDbEfP_GdK7sUBshr4gvX5ZEcPY/edit?usp=sharing",
+    "category": "atoms",
+    "attributes": {
+      "variant": {
+        "description": "Variants are various representations of a f-div.",
+        "isRequired": false,
+        "type": "string",
+        "default": "column",
+        "values": {
+          "row": {
+            "description": "Horizontal layout."
+          },
+          "column": {
+            "description": "Vertical layout (default)."
+          }
+        }
+      },
+      "state": {
+        "description": "Fill property defines the background color of a f-div.",
+        "isRequired": false,
+        "type": "string",
+        "default": "default",
+        "values": {
+          "default": {
+            "description": "Default color (default)."
+          },
+          "subtle": {
+            "description": "For less importantance."
+          },
+          "secondary": {
+            "description": "For layers above the default surface"
+          },
+          "tertiary": {
+            "description": "For layers above the default surface"
+          },
+          "success": {
+            "description": "Success"
+          },
+          "danger": {
+            "description": "Distructive actions and negative consequences. Eg: Delete, Remove, Destroy"
+          },
+          "warning": {
+            "description": "To indicate discouragement. Not always distructive."
+          }
+        }
+      },
+      "border": {
+        "description": "Border property enables a border for f-div.  You can combine border properties to achieve a desired result.",
+        "isRequired": false,
+        "type": "string",
+        "default": "medium",
+        "multiValues": true,
+        "values": {
+          "border-width": {
+            "description": "Thickness of the borders, otherwise know as weight or size.",
+            "type": "string",
+            "default": "small",
+            "values": {
+              "large": {
+                "description": "4px border."
+              },
+              "medium": {
+                "description": "2px border."
+              },
+              "small": {
+                "description": "1px border (default)."
+              }
+            },
+          },
+          "border-style": {
+            "description": "Solid, dashed or dotted borders",
+            "type": "string",
+            "default": "surface-default",
+            "values": {
+              "solid": {
+                "description": "Solid border."
+              },
+              "dashed": {
+                "description": "dashed border."
+              },
+              "dotted": {
+                "description": "dotted border."
+              }
+            },
+          },
+          "border-color": {
+            "description": "Border color options",
+            "type": "string",
+            "default": "default",
+            "values": {
+              "default": {
+                "description": "Default."
+              },
+              "secondary": {
+                "description": "Secondary."
+              },
+              "subtle": {
+                "description": "Subtle, usually used as separators in a stack."
+              }
+            },
+          },
+          "border-position": {
+            "description": "Border can display top, bottom, left, right, and around",
+            "type": "string",
+            "default": "around",
+            "values": {
+              "bottom": {
+                "description": "Border shows only on the bottom of the element."
+              },
+              "top": {
+                "description": "Border shows only om the top of the element."
+              },
+              "left": {
+                "description": "Border shows only om the left of the element."
+              },
+              "right": {
+                "description": "Border shows only on the right of the element."
+              },
+              "around": {
+                "description": "Border shows on all 4 sides."
+              }
+            },
+          },
+        }
+      },
+      "gap": {
+        "description": "Gap defines the space between the items of a layout.",
+        "isRequired": false,
+        "type": "string",
+        "default": "small",
+        "values": {
+          "auto": {"description": "Items are evenly distributed to fill the space."},
+          "x-large": {"description": "32px gap"},
+          "large": {"description": "24px gap"},
+          "medium": {"description": "16px gap"},
+          "small": {"description": "12px gap (default)"},
+          "x-small": {"description": "8px gap"},
+          "none": {"description": "No gap between the elements"}
+        }
+      },
+      "padding": {
+        "description": "Padding defines extra between the elements and the container. Gap is used for spacing between elements. You specify different values for each side. Top Right Bottom Left = Small Medium Small None.",
+        "isRequired": false,
+        "type": "string",
+        "default": "none",
+        "values": {
+          "large": {"description": "24px padding"},
+          "medium": {"description": "16px padding"},
+          "small": {"description": "12px padding"},
+          "x-small": {"description": "8px padding"},
+          "none": {"description": "No gap between the elements (default)"}
+        }
+      },
+      "width": {
+        "description": "Width of the element. Refer to the Figma handover document to know which property to use.",
+        "isRequired": false,
+        "type": "string",
+        "default": "fill-container",
+        "values": {
+          "fill-container": {
+            "description": "Will up 100% of the parent container (default)."
+          },
+          "hug-content": {
+            "description": "Will take the width of the elements inside."
+          },
+          "num-value": {
+            "description": "You can specify a value in pixels."
+          }
+        }
+      },
+      "height": {
+        "description": "Height of the element. Refer to the Figma handover document to know which property to use.",
+        "isRequired": false,
+        "type": "string",
+        "default": "fill-container",
+        "values": {
+          "fill-container": {
+            "description": "Will up 100% of the parent container."
+          },
+          "hug-content": {
+            "description": "Will take the width of the elements inside."
+          },
+          "num-value": {
+            "description": "You can specify a value in pixels."
+          }
+        }
+      },
+      "overflow": {
+        "description": "Define f-div behvaviour when elements inside overflow its width or height.",
+        "isRequired": false,
+        "type": "string",
+        "default": "wrap",
+        "values": {
+          "wrap": {
+            "description": "Height of f-div will automatically increase to allow elements to wrap (default)."
+          },
+          "scroll": {
+            "description": "A scroll bar will appear when elements overflow the width or height."
+          },
+          "hidden": {
+            "description": "Hide elements that overflow the width of height."
+          }
+        }
+      },
+      "align": {
+        "description": "Define where the elements inside f-div align.",
+        "isRequired": false,
+        "type": "string",
+        "default": "top-left",
+        "values": {
+          "left": {"description": "Align left in  the middle."},
+          "center": {"description": "Align center in the middle."},
+          "right": {"description": "Align right in the middle."},
+          "top-left": {"description": "Align top-left."},
+          "top-center": {"description": "Align top-center."},
+          "top-right": {"description": "Align top-right."},
+          "bottom-left": {"description": "Align bottom-left."},
+          "bottom-center": {"description": "Align bottom-center."},
+          "bottom-right": {"description": "Align bottom-right."},
+        }
+      },
+      "selected": {
+        "description": "Sets the f-div to a selected state. Select between border, background, or notch based on your usecase",
+        "isRequired": false,
+        "type": "string",
+        "default": "none",
+        "values": {
+          "none": {
+            "description": "Not in selected state."
+          },
+          "background": {
+            "description": "Changes the background to reflect a selected state."
+          },
+          "border": {
+            "description": "Adds a subtle border around the entire f-div."
+          },
+          "notch-right": {
+            "description": "Adds a notch on the top right of the f-div. The notch has maximum height of 48px"
+          },
+          "notch-left": {
+            "description": "Adds a notch on the top left of the f-div. The notch has maximum height of 48px"
+          }
+        }
+      },
+      "loading": {
+        "type": "boolean",
+        "description": "Displays a loading state. Shimmer replaces the content.",
+        "isRequired": false,
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "Displays a disabled state.",
+        "isRequired": false,
+        "default": false
+      },
+      "clickable": {
+        "type": "boolean",
+        "description": "Gives the element hover and clicked properties.",
+        "isRequired": false,
+        "default": false
+      },
+      "tooltip": {
+        "description": "Displays a simple tooltip on hover. Only string",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      }
+    }
+  }
+}
