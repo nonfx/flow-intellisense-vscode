@@ -149,12 +149,56 @@
         "isRequired": false,
         "type": "string",
         "default": "none",
+        "multiValues": true,
         "values": {
-          "large": { "description": "24px padding" },
-          "medium": { "description": "16px padding" },
-          "small": { "description": "12px padding" },
-          "x-small": { "description": "8px padding" },
-          "none": { "description": "No gap between the elements (default)" }
+          "padding-top": {
+            "description": "Padding top",
+            "type": "string",
+            "default": "none",
+            "values": {
+              "large": { "description": "24px padding" },
+              "medium": { "description": "16px padding" },
+              "small": { "description": "12px padding" },
+              "x-small": { "description": "8px padding" },
+              "none": { "description": "No gap between the elements (default)" }
+            }
+          },
+          "padding-right": {
+            "description": "Padding right",
+            "type": "string",
+            "default": "none",
+            "values": {
+              "large": { "description": "24px padding" },
+              "medium": { "description": "16px padding" },
+              "small": { "description": "12px padding" },
+              "x-small": { "description": "8px padding" },
+              "none": { "description": "No gap between the elements (default)" }
+            }
+          },
+          "padding-bottom": {
+            "description": "Padding bottom",
+            "type": "string",
+            "default": "none",
+            "values": {
+              "large": { "description": "24px padding" },
+              "medium": { "description": "16px padding" },
+              "small": { "description": "12px padding" },
+              "x-small": { "description": "8px padding" },
+              "none": { "description": "No gap between the elements (default)" }
+            }
+          },
+          "padding-left": {
+            "description": "Padding left",
+            "type": "string",
+            "default": "none",
+            "values": {
+              "large": { "description": "24px padding" },
+              "medium": { "description": "16px padding" },
+              "small": { "description": "12px padding" },
+              "x-small": { "description": "8px padding" },
+              "none": { "description": "No gap between the elements (default)" }
+            }
+          }
         }
       },
       "width": {
