@@ -34,6 +34,8 @@ export default function validate(
         if (attr) {
           //extract attribute name and value
           let [attrName, value] = attr.attribute.split("=");
+          const startWithBinding = /^[\.\:\[]/g;
+          const startWithValueBinding = /(^[\{])/g;
 
           value = value.replace(/["']/g, "");
           if (attrName && attrMeta) {
@@ -57,7 +59,10 @@ export default function validate(
             } else if (
               attrMeta.values &&
               !Object.keys(attrMeta.values).includes(value) &&
-              !attrMeta.multiValues
+              !attrMeta.multiValues &&
+              !startWithBinding.test(attrName) &&
+              !startWithValueBinding.test(value) &&
+              !Object.keys(attrMeta.values).includes("num-value")
             ) {
               docIssues.push({
                 code: "",
@@ -73,7 +78,12 @@ export default function validate(
                   ),
                 ],
               });
-            } else if (attrMeta.values && attrMeta.multiValues) {
+            } else if (
+              attrMeta.values &&
+              attrMeta.multiValues &&
+              !startWithBinding.test(attrName) &&
+              !startWithValueBinding.test(value)
+            ) {
               let values: string[] = [];
 
               Object.entries(attrMeta.values).forEach(
@@ -99,7 +109,10 @@ export default function validate(
                 }
               );
 
-              if (!values.includes(value)) {
+              if (
+                !values.includes(value) &&
+                !Object.keys(values).includes("num-value")
+              ) {
                 docIssues.push({
                   code: "",
                   message: `${attrName} has wrong value '${value}'`,
