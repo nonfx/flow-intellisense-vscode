@@ -1,0 +1,39 @@
+{
+  "f-text": {
+    "title": "f-spacer",
+    "description": "Used to create space between elements, align items, etc in f-div",
+    "docLink": "https://docs.google.com/document/d/1o6Mq7G4IiHu97m7lip4sCiTZ4WUwEdb1D-cVtT729WQ/edit?usp=sharing",
+    "category": "atoms",
+    "attributes": {
+      "size": {
+        "description": "Size of the spacer, you can use system values or enter numeric value (eg: 200px)",
+        "isRequired": false,
+        "type": "string",
+        "default": "medium",
+        "values": {
+          "fill-container": {
+            "description": "For titles, headers."
+          },
+          "x-large": {
+            "description": "For regular text."
+          },
+          "large": {
+            "description": "Used for log views, code snippets."
+          },
+          "medium": {
+            "description": "Used for log views, code snippets."
+          },
+          "small": {
+            "description": "Used for log views, code snippets."
+          },
+          "x-small": {
+            "description": "Used for log views, code snippets."
+          },
+          "num": {
+            "description": "Replace num with a numeric value (eg: 200px)."
+          }
+        }
+      }
+    }
+  }
+}
