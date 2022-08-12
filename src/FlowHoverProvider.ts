@@ -34,7 +34,7 @@ export default class FlowHoverProvider
 
     let tag = this.getTagName();
     let attr = this.getAttrName();
-    //console.log(tag, ":", attr);
+    // console.log(tag, ":", attr);
     if (tag && components[tag] && attr) {
       // console.log(components[tag].attributes[attr]);
       const attrMeta = components[tag].attributes[attr];
@@ -63,31 +63,72 @@ function getAttrMD(
   attr: string,
   attrMeta: FlowElementAttributeMeta
 ) {
-  const values = attrMeta.values
-    ? `- values : \`\`\`${Object.keys(attrMeta.values).join(" | ")}\`\`\``
-    : "";
+  let values = "";
+  if (attrMeta.multiValues && attrMeta.values) {
+    const valueTypes = Object.keys(attrMeta.values);
+    values += `* **Syntax** : `;
+    valueTypes.forEach((vt) => {
+      values += `[${vt}] `;
+    });
+    values += `\n
+---`;
+    valueTypes.forEach((vt) => {
+      const valueTypeMeta = (attrMeta.values[vt] as FlowElementAttributeMeta)
+        .values;
+      values += `\n#### [${vt}] \n`;
+      values += Object.entries(valueTypeMeta)
+        .map(([val, valMeta]) => {
+          return `* **${val}** ${
+            (valMeta as FlowElementAttributeMeta).description
+              ? `: ${(valMeta as FlowElementAttributeMeta).description} ${
+                  attrMeta.default === val ? "(default)" : ""
+                }`
+              : ""
+          }`;
+        })
+        .join("\n");
+      values += "\n";
+    });
+  } else if (attrMeta.values) {
+    values = Object.entries(attrMeta.values)
+      .map(([val, valMeta]) => {
+        return `* **${val}** ${
+          valMeta.description
+            ? `: ${valMeta.description} ${
+                attrMeta.default === val ? "(default)" : ""
+              }`
+            : ""
+        }`;
+      })
+      .join("\n");
+  }
 
-  return `\`\`\`${attr}\`\`\`\n
-${attrMeta.description} 
-- type : \`\`\`${attrMeta.type}\`\`\`
-- default :\`\`\` ${attrMeta.default}\`\`\`
-- isRequired : \`\`\`${attrMeta.isRequired}\`\`\`
-${values}
+  //console.log("in attr md", tag, attr);
+  return `#### ${attr} (${attrMeta.type}) ${
+    attrMeta.isRequired ? `(required)` : ""
+  } \n
+${attrMeta.description} \n
+${values} \n
+---
+\n
 `;
 }
 
 function getTagMD(tag: string, tagMeta: FlowElementMeta) {
-  let attributes = `---
-#### Attributes
-`;
-  Object.keys(tagMeta.attributes).forEach((attr) => {
-    attributes += `
-${getAttrMD(tag, attr, tagMeta.attributes[attr])}`;
-  });
-  return `### ${tagMeta.title}\n${tagMeta.description}
-- HTML Tag : \`\`\`${tag}\`\`\`
-- Category : \`\`\`${tagMeta.category}\`\`\`
-- [Docs](${tagMeta.docLink})
+  let attributes = ``;
+  const attributeList = Object.keys(tagMeta.attributes);
+
+  for (let index = 0; index < attributeList.length; index++) {
+    const attr = attributeList[index];
+    const attrMD = getAttrMD(tag, attr, tagMeta.attributes[attr]);
+
+    attributes += `${attrMD}`;
+  }
+
+  // console.log(attributes);
+  return `### ${tag} \n ${tagMeta.description}\n
+[Documentation](${tagMeta.docLink})\n
+--- \n\n
 ${attributes}
 `;
 }

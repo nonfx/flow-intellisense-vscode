@@ -63,7 +63,7 @@ export default class FlowCompletionItemProvider
       for (let val in values) {
         suggestions.push({
           label: val,
-          sortText: `0000${val}`,
+          sortText: `-000000000000${val}`,
           kind: CompletionItemKind.Value,
           detail: `${
             (values as Record<string, FlowElementAttributeValueMeta>)[val]
@@ -81,7 +81,7 @@ export default class FlowCompletionItemProvider
       for (let val in values) {
         suggestions.push({
           label: val,
-          sortText: `0000${val}`,
+          sortText: `-000000000000${val}`,
           kind: CompletionItemKind.Value,
           detail: `${
             (values as Record<string, FlowElementAttributeValueMeta>)[val]
@@ -186,7 +186,7 @@ export default class FlowCompletionItemProvider
 
     return {
       label: tag,
-      sortText: `0000${id}${tag}`,
+      sortText: `-000000000000${id}${tag}`,
       insertText: new SnippetString(
         prettyHTML("<" + snippets.join(""), { indent_size: this.size }).substr(
           1
@@ -227,7 +227,7 @@ export default class FlowCompletionItemProvider
       defaultValue && (documentation += "\n" + `default: ${defaultValue}`);
       return {
         label: attr,
-        sortText: `0000${attr}`,
+        sortText: `-000000000000${attr}`,
         insertText:
           type && type === "flag"
             ? `${attr} `
