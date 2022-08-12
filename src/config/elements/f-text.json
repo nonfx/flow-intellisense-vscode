@@ -1,0 +1,119 @@
+{
+  "f-text": {
+    "title": "f-text",
+    "description": "Icon only button",
+    "docLink": "https://docs.google.com/document/d/1gc2pg9aZd1NsYvTXjAREsJkVYUsuin0-BiRa9vX9QNY/edit?usp=sharing",
+    "category": "atoms",
+    "attributes": {
+      "variant": {
+        "description": "Variants are various representations of a f-text. Heading, paragraph (para) or code.",
+        "isRequired": false,
+        "type": "string",
+        "default": "para",
+        "values": {
+          "heading": {
+            "description": "For titles, headers."
+          },
+          "para": {
+            "description": "For regular text."
+          },
+          "code": {
+            "description": "Used for log views, code snippets."
+          }
+        }
+      },
+      "size": {
+        "description": "Different sizes for each text variant.",
+        "isRequired": false,
+        "type": "string",
+        "default": "medium",
+        "values": {
+          "x-large": {
+            "description": "heading (24px), para (18px), code (18px)."
+          },
+          "large": {
+            "description": "heading (20px), para (16px), code (16px)."
+          },
+          "medium": {
+            "description": "heading (16px), para (14px), code (14px)"
+          },
+          "small": {
+            "description": "heading (14px), para (12px), code (12px)"
+          },
+          "x-small": {
+            "description": "heading (12px), para (10px), code (10px)"
+          }
+        }
+      },
+      "weight": {
+        "description": "The visual weight of the text. Regular, medium and bold.",
+        "isRequired": false,
+        "type": "string",
+        "default": "medium",
+        "values": {
+          "bold": {"description": "Large font weight"},
+          "medium": { "description": "Medium font weight" },
+          "regular": { "description": "Regular font weight" },
+        }
+      },
+      "state": {
+        "description": "Color of the font based on usecases.",
+        "isRequired": false,
+        "type": "string",
+        "default": "default",
+        "values": {
+          "default": {
+            "description": "Default text color, used in most places."
+          },
+          "secondary": {
+            "description": "Lighter version of the default text color."
+          },
+          "subtle": {
+            "description": "Lightest version of the default text color."
+          },
+          "primary": {
+            "description": "Strong emphasis. Reserved for essential actions and links."
+          },
+          "success": {
+            "description": "Indicating success and positive results."
+          },
+          "danger": {
+            "description": "Distructive actions and negative consequences. Eg: Delete, Remove, Destroy"
+          },
+          "warning": {
+            "description": "To indicate discouragement. Not always distructive."
+          }
+        }
+      },
+      "align": {
+        "description": "Align text to left, center or right of its parent container.",
+        "isRequired": false,
+        "type": "string",
+        "default": "left",
+        "values": {
+          "left": {"description": "Align text to the left"},
+          "center": { "description": "Align text to the center" },
+          "right": { "description": "Align text to the right" }
+        }
+      },
+      "loading": {
+        "type": "boolean",
+        "description": "Displays a loading state. Loader replaces the content.",
+        "isRequired": false,
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "Displays a disabled state.",
+        "isRequired": false,
+        "default": false
+      },
+      "tooltip": {
+        "description": "Displays the focus state.",
+        "isRequired": false,
+        "type": "string",
+        "default": null
+      }
+    }
+  }
+}
