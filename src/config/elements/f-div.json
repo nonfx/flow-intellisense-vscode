@@ -54,6 +54,9 @@
           "success": {
             "description": "Success"
           },
+          "primary": {
+            "description": "Primary"
+          },
           "danger": {
             "description": "Distructive actions and negative consequences. Eg: Delete, Remove, Destroy"
           },
@@ -272,15 +275,33 @@
         "type": "string",
         "default": "top-left",
         "values": {
-          "middle-left": { "description": "Align f-div to left and vertically center elements." },
-          "middle-center": { "description": "Align f-div to center and vertically center elements." },
-          "middle-right": { "description": "Align f-div to right and vertically center elements." },
-          "top-left": { "description": "Align f-div to top-left and elements to the top." },
-          "top-center": { "description": "Align f-div to top-center and elements to the top." },
-          "top-right": { "description": "Align f-div to top-right and elements to the top." },
-          "bottom-left": { "description": "Align f-div to bottom-left and elements to the bottom." },
-          "bottom-center": { "description": "Align f-div to bottom-center and elements to the bottom." },
-          "bottom-right": { "description": "Align f-div to bottom-right and elements to the bottom." }
+          "middle-left": {
+            "description": "Align f-div to left and vertically center elements."
+          },
+          "middle-center": {
+            "description": "Align f-div to center and vertically center elements."
+          },
+          "middle-right": {
+            "description": "Align f-div to right and vertically center elements."
+          },
+          "top-left": {
+            "description": "Align f-div to top-left and elements to the top."
+          },
+          "top-center": {
+            "description": "Align f-div to top-center and elements to the top."
+          },
+          "top-right": {
+            "description": "Align f-div to top-right and elements to the top."
+          },
+          "bottom-left": {
+            "description": "Align f-div to bottom-left and elements to the bottom."
+          },
+          "bottom-center": {
+            "description": "Align f-div to bottom-center and elements to the bottom."
+          },
+          "bottom-right": {
+            "description": "Align f-div to bottom-right and elements to the bottom."
+          }
         }
       },
       "selected": {
