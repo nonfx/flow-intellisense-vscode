@@ -71,7 +71,7 @@
           "warning": {
             "description": "To indicate discouragement. Not always distructive."
           },
-          "subtle": {
+          "neutral": {
             "description": "Actions with little prominence"
           }
         }
@@ -94,16 +94,7 @@
         "isRequired": false,
         "default": false
       },
-      "label-wrap": {
-        "description": "Wrap the button label upto 2 lines.",
-        "isRequired": false,
-        "default": false
-      },
-      "label": {
-        "description": "Wrap the button label upto 2 lines.",
-        "isRequired": true,
-        "type": "string"
-      },
+
       "tooltip": {
         "description": "Displays the focus state.",
         "isRequired": false,

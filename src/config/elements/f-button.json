@@ -22,7 +22,7 @@
           }
         }
       },
-      "type": {
+      "category": {
         "description": "Change the style of the button.",
         "isRequired": false,
         "type": "string",
@@ -45,7 +45,7 @@
         "type": "string",
         "default": "medium",
         "values": {
-          "large": {"description": "large" },
+          "large": { "description": "large" },
           "medium": { "description": "medium" },
           "small": { "description": "small" },
           "x-small": { "description": "x-small" }
