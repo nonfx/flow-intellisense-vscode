@@ -71,6 +71,9 @@
           },
           "subtle": {
             "description": "Actions with little prominence"
+          },
+          "neutral": {
+            "description": "Neutral"
           }
         }
       },
