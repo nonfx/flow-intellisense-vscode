@@ -80,8 +80,8 @@
         }
       },
       "icon": {
-        "description": "Icon on the left of label.",
-        "isRequired": false,
+        "description": "Icon name to disply.",
+        "isRequired": true,
         "type": "string",
         "default": null
       },

@@ -62,6 +62,9 @@
           },
           "warning": {
             "description": "To indicate discouragement. Not always distructive."
+          },
+          "transparent": {
+            "description": "Transparent background"
           }
         }
       },
