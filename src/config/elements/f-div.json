@@ -176,10 +176,11 @@
             "type": "string",
             "default": "none",
             "values": {
-              "large": { "description": "24px padding" },
-              "medium": { "description": "16px padding" },
-              "small": { "description": "12px padding" },
-              "x-small": { "description": "8px padding" },
+              "x-large": { "description": "24px padding" },
+              "large": { "description": "16px padding" },
+              "medium": { "description": "12px padding" },
+              "small": { "description": "8px padding" },
+              "x-small": { "description": "4px padding" },
               "none": { "description": "No gap between the elements (default)" }
             }
           },
@@ -188,10 +189,11 @@
             "type": "string",
             "default": "none",
             "values": {
-              "large": { "description": "24px padding" },
-              "medium": { "description": "16px padding" },
-              "small": { "description": "12px padding" },
-              "x-small": { "description": "8px padding" },
+              "x-large": { "description": "24px padding" },
+              "large": { "description": "16px padding" },
+              "medium": { "description": "12px padding" },
+              "small": { "description": "8px padding" },
+              "x-small": { "description": "4px padding" },
               "none": { "description": "No gap between the elements (default)" }
             }
           },
@@ -200,10 +202,11 @@
             "type": "string",
             "default": "none",
             "values": {
-              "large": { "description": "24px padding" },
-              "medium": { "description": "16px padding" },
-              "small": { "description": "12px padding" },
-              "x-small": { "description": "8px padding" },
+              "x-large": { "description": "24px padding" },
+              "large": { "description": "16px padding" },
+              "medium": { "description": "12px padding" },
+              "small": { "description": "8px padding" },
+              "x-small": { "description": "4px padding" },
               "none": { "description": "No gap between the elements (default)" }
             }
           },
@@ -212,10 +215,11 @@
             "type": "string",
             "default": "none",
             "values": {
-              "large": { "description": "24px padding" },
-              "medium": { "description": "16px padding" },
-              "small": { "description": "12px padding" },
-              "x-small": { "description": "8px padding" },
+              "x-large": { "description": "24px padding" },
+              "large": { "description": "16px padding" },
+              "medium": { "description": "12px padding" },
+              "small": { "description": "8px padding" },
+              "x-small": { "description": "4px padding" },
               "none": { "description": "No gap between the elements (default)" }
             }
           }

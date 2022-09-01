@@ -29,7 +29,7 @@
           "x-small": {
             "description": "Used for log views, code snippets."
           },
-          "num": {
+          "num-value": {
             "description": "Replace num with a numeric value (eg: 200px)."
           }
         }
