@@ -50,6 +50,10 @@ export function activate(context: vscode.ExtensionContext) {
       language: "html",
       scheme: "file",
     },
+    {
+      language: "mdx",
+      scheme: "file",
+    },
   ];
 
   let completion = vscode.languages.registerCompletionItemProvider(

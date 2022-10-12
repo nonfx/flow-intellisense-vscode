@@ -19,10 +19,11 @@ export default function validate(
 ) {
   let flowTagRegex = /<(?=f-.*)(.|\n)*?>/g;
   const documentText = document.getText();
+  const isTestFile = document.fileName.indexOf("test.") > -1;
   let flowTags = documentText.match(flowTagRegex);
   // console.log(flowTags);
   const docIssues: Diagnostic[] = [];
-  if (flowTags) {
+  if (flowTags && !isTestFile) {
     const tagPositions = getTagPositions(flowTags, document);
 
     tagPositions.forEach((tagMeta) => {
