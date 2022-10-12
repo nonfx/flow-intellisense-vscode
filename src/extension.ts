@@ -51,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
       scheme: "file",
     },
     {
-      language: "mdx",
+      language: "markdown",
       scheme: "file",
     },
   ];
