@@ -273,6 +273,9 @@
           },
           "hidden": {
             "description": "Hide elements that overflow the width of height."
+          },
+          "visible": {
+            "description": "Allows children contents to overflow. Sets both the overflow-x and overflow-y to visible."
           }
         }
       },
