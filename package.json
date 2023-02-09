@@ -2,7 +2,7 @@
   "name": "flow-intellisense-vscode",
   "displayName": "Flow Intellisense for flow design system",
   "description": "flow library intellisense for vscode [*.vue, *.html]",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "publisher": "dev-vikas",
   "repository": {
     "type": "git",
