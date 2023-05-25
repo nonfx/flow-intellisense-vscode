@@ -76,6 +76,9 @@
           },
           "neutral": {
             "description": "Actions with little prominence"
+          },
+          "inherit": {
+            "description": "Inherits the parent state"
           }
         }
       },
