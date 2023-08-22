@@ -50,6 +50,9 @@
           },
           "warning": {
             "description": "To indicate discouragement. Not always distructive."
+          }, 
+          "inherit": {
+            "description": "Inherits the parent state"
           }
         }
       },
