@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.6 (Feb 13, 2024)
+
+### Improvements
+
+- Added `packed` as valid `category` value in `f-button`
+
+
 ## 1.3.5 (Aug 22, 2023)
 
 ### Improvements
