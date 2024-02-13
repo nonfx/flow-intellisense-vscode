@@ -36,6 +36,9 @@
           },
           "transparent": {
             "description": "No fill or border. Note: standard button padding will remain. Use f-text for a href/link "
+          },
+          "packed": {
+            "description": "Disaply without padding"
           }
         }
       },
